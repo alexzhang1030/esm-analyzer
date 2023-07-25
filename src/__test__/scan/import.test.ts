@@ -1,4 +1,4 @@
-import { loadCode } from '@/common'
+import { loadScanner } from '@/common'
 import { scan, scanImport } from '@/scanner'
 
 describe('scan import', () => {
@@ -350,7 +350,7 @@ describe('pass config', () => {
       import { b } from 'react'
       import { c } from '@vueuse/core'
     `
-    const result = loadCode(code, 'js', [node => scanImport(node, {
+    const result = loadScanner(code, 'js', [node => scanImport(node, {
       includeSource: ['vue', '@vueuse/core'],
     })])
     expect(result).toMatchInlineSnapshot(`

@@ -23,15 +23,15 @@ export function babelParse(code: string, lang: string) {
 
 type NonNullable<T> = T extends null | undefined ? never : T
 
-export function loadCode<I, R extends I[]>(code: string, lang: string, processors: ((node: ASTNode) => R | null)[]) {
+export function loadScanner<I, R extends I[]>(code: string, lang: string, scanner: ((node: ASTNode) => R | null)[]) {
   if (!isAcceptableLang(lang))
     throw new Error(`[ESM Analyzer] Unsupported language: ${lang}`)
-  const result: NonNullable<R>[] = Array.from({ length: processors.length }).fill(null).map<NonNullable<R>>(() => [] as any)
+  const result: NonNullable<R>[] = Array.from({ length: scanner.length }).fill(null).map<NonNullable<R>>(() => [] as any)
   const ast = babelParse(code, lang)
   walkAST(ast, {
     enter(node) {
-      loop(processors, (processor, index) => {
-        const res = processor(node)
+      loop(scanner, (scanner, index) => {
+        const res = scanner(node)
         if (res)
           result[index].push(...res)
       })
