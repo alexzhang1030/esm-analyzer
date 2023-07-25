@@ -1,6 +1,5 @@
 {
   "name": "lib-name",
-  "type": "module",
   "version": "0.0.0",
   "description": "lib-description",
   "author": "alexzhang1030",
@@ -12,12 +11,12 @@
   "keywords": [],
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
     }
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
