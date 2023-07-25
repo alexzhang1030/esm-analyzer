@@ -1,1 +1,1 @@
-export const foo = 'bar'
+export { scan } from './scanner'
