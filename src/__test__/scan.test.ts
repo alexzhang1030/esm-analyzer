@@ -55,6 +55,7 @@ describe('scan import', () => {
       [
         {
           "imported": "foo",
+          "isType": false,
           "loc": {
             "end": {
               "column": 18,
@@ -74,6 +75,7 @@ describe('scan import', () => {
         },
         {
           "imported": "foo1",
+          "isType": false,
           "loc": {
             "end": {
               "column": 32,
@@ -93,6 +95,7 @@ describe('scan import', () => {
         },
         {
           "imported": "foo3",
+          "isType": false,
           "loc": {
             "end": {
               "column": 48,
@@ -112,6 +115,7 @@ describe('scan import', () => {
         },
         {
           "imported": "bar1",
+          "isType": false,
           "loc": {
             "end": {
               "column": 27,
@@ -131,6 +135,7 @@ describe('scan import', () => {
         },
         {
           "imported": "baz1",
+          "isType": false,
           "loc": {
             "end": {
               "column": 29,
@@ -196,6 +201,7 @@ describe('scan import', () => {
         },
         {
           "imported": "foo3",
+          "isType": false,
           "loc": {
             "end": {
               "column": 19,
@@ -215,6 +221,7 @@ describe('scan import', () => {
         },
         {
           "imported": "foo3",
+          "isType": false,
           "loc": {
             "end": {
               "column": 27,
@@ -229,6 +236,96 @@ describe('scan import', () => {
           },
           "local": "foo4",
           "source": "bar3",
+          "subType": "id",
+          "type": "import",
+        },
+      ]
+    `)
+  })
+  test('import type', () => {
+    const code = `
+      import type { foo1, foo2 } from 'foo'
+      import { type foo3, foo4_real }  from 'bar'
+    `
+    expect(scan(code, 'ts').import).toMatchInlineSnapshot(`
+      [
+        {
+          "imported": "foo1",
+          "isType": true,
+          "loc": {
+            "end": {
+              "column": 24,
+              "index": 25,
+              "line": 2,
+            },
+            "start": {
+              "column": 20,
+              "index": 21,
+              "line": 2,
+            },
+          },
+          "local": "foo1",
+          "source": "foo",
+          "subType": "id",
+          "type": "import",
+        },
+        {
+          "imported": "foo2",
+          "isType": true,
+          "loc": {
+            "end": {
+              "column": 30,
+              "index": 31,
+              "line": 2,
+            },
+            "start": {
+              "column": 26,
+              "index": 27,
+              "line": 2,
+            },
+          },
+          "local": "foo2",
+          "source": "foo",
+          "subType": "id",
+          "type": "import",
+        },
+        {
+          "imported": "foo3",
+          "isType": true,
+          "loc": {
+            "end": {
+              "column": 24,
+              "index": 69,
+              "line": 3,
+            },
+            "start": {
+              "column": 15,
+              "index": 60,
+              "line": 3,
+            },
+          },
+          "local": "foo3",
+          "source": "bar",
+          "subType": "id",
+          "type": "import",
+        },
+        {
+          "imported": "foo4_real",
+          "isType": false,
+          "loc": {
+            "end": {
+              "column": 35,
+              "index": 80,
+              "line": 3,
+            },
+            "start": {
+              "column": 26,
+              "index": 71,
+              "line": 3,
+            },
+          },
+          "local": "foo4_real",
+          "source": "bar",
           "subType": "id",
           "type": "import",
         },

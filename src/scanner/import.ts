@@ -1,5 +1,6 @@
 import { getASTNodeLocation, isImportDeclaration } from '@/common'
 import type { ASTNode, ASTNodeLocation, t } from '@/types'
+
 import { loop } from '@/utils'
 
 interface ScanResultBase {
@@ -20,6 +21,7 @@ interface ScanResultNamespace extends ScanResultBase {
 interface ScanResultImport extends ScanResultBase {
   type: 'import'
   subType: 'id' | 'string'
+  isType: boolean
   local: string // local name
   imported: string // imported name
 }
@@ -31,13 +33,16 @@ function resolveDefaultSpecifier(node: t.ImportDefaultSpecifier) {
   return node.local.name
 }
 
+// import * as bar from 'foo'
 function resolveNamespaceSpecifier(node: t.ImportNamespaceSpecifier) {
   return node.local.name
 }
 
+// import { bar } from 'foo'
 function resolveImportSpecifier(node: t.ImportSpecifier) {
   let imported: string
   let subType: ScanResultImport['subType'] = 'id'
+  const isType = node.importKind === 'type'
   if (node.imported.type === 'Identifier') {
     imported = node.imported.name
   }
@@ -49,6 +54,7 @@ function resolveImportSpecifier(node: t.ImportSpecifier) {
     imported,
     local: node.local.name,
     subType,
+    isType,
   }
 }
 
@@ -60,6 +66,7 @@ export function scanImport(node: ASTNode): ScanImportResultItem[] | null {
     return null
   const result: ScanImportResultItem[] = []
   const source = node.source.value
+  const isType = node.importKind === 'type'
   loop(items, (item) => {
     if (item.type === 'ImportDefaultSpecifier') {
       result.push({
@@ -78,11 +85,15 @@ export function scanImport(node: ASTNode): ScanImportResultItem[] | null {
       })
     }
     else if (item.type === 'ImportSpecifier') {
+      const { imported, local, subType, isType: subIsType } = resolveImportSpecifier(item)
       result.push({
         type: 'import',
         loc: getASTNodeLocation(item),
         source,
-        ...resolveImportSpecifier(item),
+        imported,
+        local,
+        subType,
+        isType: !isType ? subIsType : isType,
       })
     }
   })
