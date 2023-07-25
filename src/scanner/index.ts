@@ -4,11 +4,11 @@ import type { AcceptableLang } from '@/types'
 import { loadScanner } from '@/common'
 
 interface ScanConfig {
-  import: ScanImportConfig
+  import?: ScanImportConfig
 }
 
 const defaultConfig: ScanConfig = {
-  import: {},
+  import: undefined,
 }
 
 export function scan(code: string, lang: AcceptableLang, config: ScanConfig = defaultConfig) {

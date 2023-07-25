@@ -61,11 +61,13 @@ function resolveImportSpecifier(node: t.ImportSpecifier) {
 export interface ScanImportConfig {
   includeSource?: string[]
   excludeSource?: string[]
+  skipType?: boolean
 }
 
-const defaultConfig: Required<ScanImportConfig> = {
+export const defaultConfig: Required<ScanImportConfig> = {
   includeSource: [],
   excludeSource: [],
+  skipType: false,
 }
 
 export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConfig): ScanImportResultItem[] | null {
@@ -80,6 +82,8 @@ export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConf
   if (config.includeSource?.length && !config.includeSource.includes(source))
     return null
   if (config.excludeSource?.length && config.excludeSource.includes(source))
+    return null
+  if (config.skipType && isType)
     return null
   loop(items, (item) => {
     if (item.type === 'ImportDefaultSpecifier') {
@@ -100,6 +104,8 @@ export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConf
     }
     else if (item.type === 'ImportSpecifier') {
       const { imported, local, subType, isType: subIsType } = resolveImportSpecifier(item)
+      if (config.skipType && subIsType)
+        return
       result.push({
         type: 'import',
         loc: getASTNodeLocation(item),

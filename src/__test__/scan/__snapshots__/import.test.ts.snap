@@ -1,0 +1,412 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`pass config > excludeSource 1`] = `
+[
+  [
+    {
+      "imported": "b",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 16,
+          "index": 47,
+          "line": 3,
+        },
+        "start": {
+          "column": 15,
+          "index": 46,
+          "line": 3,
+        },
+      },
+      "local": "b",
+      "source": "react",
+      "subType": "id",
+      "type": "import",
+    },
+  ],
+]
+`;
+
+exports[`pass config > includeSource 1`] = `
+[
+  [
+    {
+      "imported": "a",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 16,
+          "index": 17,
+          "line": 2,
+        },
+        "start": {
+          "column": 15,
+          "index": 16,
+          "line": 2,
+        },
+      },
+      "local": "a",
+      "source": "vue",
+      "subType": "id",
+      "type": "import",
+    },
+    {
+      "imported": "c",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 16,
+          "index": 79,
+          "line": 4,
+        },
+        "start": {
+          "column": 15,
+          "index": 78,
+          "line": 4,
+        },
+      },
+      "local": "c",
+      "source": "@vueuse/core",
+      "subType": "id",
+      "type": "import",
+    },
+    {
+      "imported": "d",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 19,
+          "index": 82,
+          "line": 4,
+        },
+        "start": {
+          "column": 18,
+          "index": 81,
+          "line": 4,
+        },
+      },
+      "local": "d",
+      "source": "@vueuse/core",
+      "subType": "id",
+      "type": "import",
+    },
+  ],
+]
+`;
+
+exports[`scan import > combine 1`] = `
+{
+  "imports": [
+    {
+      "loc": {
+        "end": {
+          "column": 16,
+          "index": 17,
+          "line": 2,
+        },
+        "start": {
+          "column": 13,
+          "index": 14,
+          "line": 2,
+        },
+      },
+      "local": "foo",
+      "source": "bar",
+      "type": "default",
+    },
+    {
+      "loc": {
+        "end": {
+          "column": 22,
+          "index": 51,
+          "line": 3,
+        },
+        "start": {
+          "column": 13,
+          "index": 42,
+          "line": 3,
+        },
+      },
+      "local": "foo2",
+      "source": "bar1",
+      "type": "namespace",
+    },
+    {
+      "imported": "foo3",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 19,
+          "index": 83,
+          "line": 4,
+        },
+        "start": {
+          "column": 15,
+          "index": 79,
+          "line": 4,
+        },
+      },
+      "local": "foo3",
+      "source": "bar2",
+      "subType": "id",
+      "type": "import",
+    },
+    {
+      "imported": "foo3",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 27,
+          "index": 125,
+          "line": 5,
+        },
+        "start": {
+          "column": 15,
+          "index": 113,
+          "line": 5,
+        },
+      },
+      "local": "foo4",
+      "source": "bar3",
+      "subType": "id",
+      "type": "import",
+    },
+  ],
+}
+`;
+
+exports[`scan import > import default 1`] = `
+[
+  {
+    "loc": {
+      "end": {
+        "column": 10,
+        "index": 10,
+        "line": 1,
+      },
+      "start": {
+        "column": 7,
+        "index": 7,
+        "line": 1,
+      },
+    },
+    "local": "foo",
+    "source": "bar",
+    "type": "default",
+  },
+]
+`;
+
+exports[`scan import > import id 1`] = `
+{
+  "imports": [
+    {
+      "imported": "foo",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 18,
+          "index": 19,
+          "line": 2,
+        },
+        "start": {
+          "column": 15,
+          "index": 16,
+          "line": 2,
+        },
+      },
+      "local": "foo",
+      "source": "bar",
+      "subType": "id",
+      "type": "import",
+    },
+    {
+      "imported": "foo1",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 32,
+          "index": 33,
+          "line": 2,
+        },
+        "start": {
+          "column": 20,
+          "index": 21,
+          "line": 2,
+        },
+      },
+      "local": "foo2",
+      "source": "bar",
+      "subType": "id",
+      "type": "import",
+    },
+    {
+      "imported": "foo3",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 48,
+          "index": 49,
+          "line": 2,
+        },
+        "start": {
+          "column": 34,
+          "index": 35,
+          "line": 2,
+        },
+      },
+      "local": "foo4",
+      "source": "bar",
+      "subType": "string",
+      "type": "import",
+    },
+    {
+      "imported": "bar1",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 27,
+          "index": 90,
+          "line": 3,
+        },
+        "start": {
+          "column": 15,
+          "index": 78,
+          "line": 3,
+        },
+      },
+      "local": "bar2",
+      "source": "bar",
+      "subType": "id",
+      "type": "import",
+    },
+    {
+      "imported": "baz1",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 29,
+          "index": 133,
+          "line": 4,
+        },
+        "start": {
+          "column": 15,
+          "index": 119,
+          "line": 4,
+        },
+      },
+      "local": "baz2",
+      "source": "bar",
+      "subType": "string",
+      "type": "import",
+    },
+  ],
+}
+`;
+
+exports[`scan import > import namespace 1`] = `
+{
+  "loc": {
+    "end": {
+      "column": 15,
+      "index": 15,
+      "line": 1,
+    },
+    "start": {
+      "column": 7,
+      "index": 7,
+      "line": 1,
+    },
+  },
+  "local": "foo",
+  "source": "bar",
+  "type": "namespace",
+}
+`;
+
+exports[`scan import > import type 1`] = `
+{
+  "imports": [
+    {
+      "imported": "foo1",
+      "isType": true,
+      "loc": {
+        "end": {
+          "column": 24,
+          "index": 25,
+          "line": 2,
+        },
+        "start": {
+          "column": 20,
+          "index": 21,
+          "line": 2,
+        },
+      },
+      "local": "foo1",
+      "source": "foo",
+      "subType": "id",
+      "type": "import",
+    },
+    {
+      "imported": "foo2",
+      "isType": true,
+      "loc": {
+        "end": {
+          "column": 30,
+          "index": 31,
+          "line": 2,
+        },
+        "start": {
+          "column": 26,
+          "index": 27,
+          "line": 2,
+        },
+      },
+      "local": "foo2",
+      "source": "foo",
+      "subType": "id",
+      "type": "import",
+    },
+    {
+      "imported": "foo3",
+      "isType": true,
+      "loc": {
+        "end": {
+          "column": 24,
+          "index": 69,
+          "line": 3,
+        },
+        "start": {
+          "column": 15,
+          "index": 60,
+          "line": 3,
+        },
+      },
+      "local": "foo3",
+      "source": "bar",
+      "subType": "id",
+      "type": "import",
+    },
+    {
+      "imported": "foo4_real",
+      "isType": false,
+      "loc": {
+        "end": {
+          "column": 35,
+          "index": 80,
+          "line": 3,
+        },
+        "start": {
+          "column": 26,
+          "index": 71,
+          "line": 3,
+        },
+      },
+      "local": "foo4_real",
+      "source": "bar",
+      "subType": "id",
+      "type": "import",
+    },
+  ],
+}
+`;
