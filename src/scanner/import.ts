@@ -1,8 +1,32 @@
-import type { ScanImportResultImport, ScanImportResultItem } from './type'
 import { getASTNodeLocation, isImportDeclaration } from '@/common'
-import type { ASTNode, t } from '@/types'
+import type { ASTNode, ASTNodeLocation, t } from '@/types'
 
 import { loop } from '@/utils'
+
+interface ScanResultBase {
+  source: string
+  loc: ASTNodeLocation
+}
+
+export interface ScanImportResultDefault extends ScanResultBase {
+  type: 'default'
+  local: string // local name
+}
+
+export interface ScanImportResultNamespace extends ScanResultBase {
+  type: 'namespace'
+  local: string // local name
+}
+
+export interface ScanImportResultImport extends ScanResultBase {
+  type: 'import'
+  subType: 'id' | 'string'
+  isType: boolean
+  local: string // local name
+  imported: string // imported name
+}
+
+export type ScanImportResultItem = ScanImportResultDefault | ScanImportResultNamespace | ScanImportResultImport
 
 // import bar from 'foo'
 function resolveDefaultSpecifier(node: t.ImportDefaultSpecifier) {
@@ -34,7 +58,17 @@ function resolveImportSpecifier(node: t.ImportSpecifier) {
   }
 }
 
-export function scanImport(node: ASTNode): ScanImportResultItem[] | null {
+export interface ScanImportConfig {
+  includeSource?: string[]
+  excludeSource?: string[]
+}
+
+const defaultConfig: Required<ScanImportConfig> = {
+  includeSource: [],
+  excludeSource: [],
+}
+
+export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConfig): ScanImportResultItem[] | null {
   if (!isImportDeclaration(node))
     return null
   const items = node.specifiers
@@ -43,6 +77,10 @@ export function scanImport(node: ASTNode): ScanImportResultItem[] | null {
   const result: ScanImportResultItem[] = []
   const source = node.source.value
   const isType = node.importKind === 'type'
+  if (config.includeSource?.length && !config.includeSource.includes(source))
+    return null
+  if (config.excludeSource?.length && config.excludeSource.includes(source))
+    return null
   loop(items, (item) => {
     if (item.type === 'ImportDefaultSpecifier') {
       result.push({

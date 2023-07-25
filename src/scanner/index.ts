@@ -1,23 +1,21 @@
+import type { ScanImportConfig } from './import'
 import { scanImport } from './import'
-import type { ScanImportResultItem } from './type'
 import type { AcceptableLang } from '@/types'
-import { babelParse, walkAST } from '@/common'
+import { loadCode } from '@/common'
 
-export function scan(code: string, lang: AcceptableLang) {
-  const ast = babelParse(code, lang)
-  const results: {
-    import: ScanImportResultItem[]
-  } = {
-    import: [],
-  }
-  walkAST(ast, {
-    enter(node) {
-      const importResult = scanImport(node)
-      if (importResult)
-        results.import.push(...importResult)
-    },
-  })
-  return results
+interface ScanConfig {
+  import: ScanImportConfig
 }
 
-export type * from './type'
+const defaultConfig: ScanConfig = {
+  import: {},
+}
+
+export function scan(code: string, lang: AcceptableLang, config: ScanConfig = defaultConfig) {
+  const [imports] = loadCode(code, lang, [node => scanImport(node, config.import)])
+  return {
+    imports,
+  }
+}
+
+export * from './import'
