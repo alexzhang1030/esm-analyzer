@@ -1,6 +1,6 @@
 {
   "name": "esm-analyzer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "The scanner and analyzer of ESM(odule).",
   "author": "alexzhang1030",
   "license": "MIT",
@@ -8,7 +8,13 @@
     "type": "git",
     "url": "git+https://github.com/alexzhang1030/esm-analyzer.git"
   },
-  "keywords": ["esm", "import", "export", "scanner", "analyzer"],
+  "keywords": [
+    "esm",
+    "import",
+    "export",
+    "scanner",
+    "analyzer"
+  ],
   "exports": {
     ".": {
       "require": "./dist/index.js",
