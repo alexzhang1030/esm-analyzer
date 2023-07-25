@@ -1,5 +1,11 @@
 {
   "extends": [
     "github>alexzhang-dev/renovate-config"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["estree-walker"],
+      "allowedVersions": "<3.0.0"
+    }
   ]
 }
