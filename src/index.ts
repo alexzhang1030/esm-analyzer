@@ -1,1 +1,1 @@
-export { scan } from './scanner'
+export * from './scanner'

@@ -1,32 +1,8 @@
+import type { ScanImportResultImport, ScanImportResultItem } from './type'
 import { getASTNodeLocation, isImportDeclaration } from '@/common'
-import type { ASTNode, ASTNodeLocation, t } from '@/types'
+import type { ASTNode, t } from '@/types'
 
 import { loop } from '@/utils'
-
-interface ScanResultBase {
-  source: string
-  loc: ASTNodeLocation
-}
-
-interface ScanResultDefault extends ScanResultBase {
-  type: 'default'
-  local: string // local name
-}
-
-interface ScanResultNamespace extends ScanResultBase {
-  type: 'namespace'
-  local: string // local name
-}
-
-interface ScanResultImport extends ScanResultBase {
-  type: 'import'
-  subType: 'id' | 'string'
-  isType: boolean
-  local: string // local name
-  imported: string // imported name
-}
-
-export type ScanImportResultItem = ScanResultDefault | ScanResultNamespace | ScanResultImport
 
 // import bar from 'foo'
 function resolveDefaultSpecifier(node: t.ImportDefaultSpecifier) {
@@ -41,7 +17,7 @@ function resolveNamespaceSpecifier(node: t.ImportNamespaceSpecifier) {
 // import { bar } from 'foo'
 function resolveImportSpecifier(node: t.ImportSpecifier) {
   let imported: string
-  let subType: ScanResultImport['subType'] = 'id'
+  let subType: ScanImportResultImport['subType'] = 'id'
   const isType = node.importKind === 'type'
   if (node.imported.type === 'Identifier') {
     imported = node.imported.name

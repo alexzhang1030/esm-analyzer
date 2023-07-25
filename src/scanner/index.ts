@@ -1,5 +1,5 @@
-import type { ScanImportResultItem } from './import'
 import { scanImport } from './import'
+import type { ScanImportResultItem } from './type'
 import type { AcceptableLang } from '@/types'
 import { babelParse, walkAST } from '@/common'
 
@@ -19,3 +19,5 @@ export function scan(code: string, lang: AcceptableLang) {
   })
   return results
 }
+
+export type * from './type'
