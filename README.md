@@ -1,13 +1,11 @@
-# lib-name
+# esm-analyzer
 
-lib-description
-
-replace `lib-name` and `lib-description` to real name and description.
+The scanner and analyzer of ESM(odule).
 
 ## Installation
 
 ```bash
-pnpm i lib-name
+pnpm i esm-analyzer
 ```
 
 ## License
