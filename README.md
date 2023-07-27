@@ -14,7 +14,7 @@ The scanner and analyzer of ESM.
       - [config](#config)
     - [`variable declarations` scanner](#variable-declarations-scanner)
       - [type definition](#type-definition-1)
-    - [cases](#cases-1)
+      - [cases](#cases-1)
       - [examples](#examples-1)
       - [the standalone API](#the-standalone-api-1)
       - [config](#config-1)
@@ -171,7 +171,7 @@ export interface ScanVariableDeclarationResult {
 }
 ```
 
-### cases
+#### cases
 
 - ❌ deferred init
 - primitive declaration
