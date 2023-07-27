@@ -1,13 +1,27 @@
 import type { Primitive } from 'type-fest'
+import type { ScanVariableDeclarationConfig } from '..'
 import { isIdentifier } from './ast'
 import type { ASTNode } from '@/types'
+
+export type VariableType =
+  | 'StringLiteral'
+  | 'NumericLiteral'
+  | 'BooleanLiteral'
+  | 'NullLiteral'
+  | 'ObjectExpression'
+  | 'ArrayExpression'
+  | 'CallExpression'
 
 type PrimitiveValue =
   | Primitive
   | null | undefined
 
 export interface PrimitiveVariableValue {
-  type: 'StringLiteral' | 'NumericLiteral' | 'BooleanLiteral' | 'NullLiteral' | 'ObjectExpression' | 'ArrayExpression'
+  type:
+  | 'StringLiteral'
+  | 'NumericLiteral'
+  | 'BooleanLiteral'
+  | 'NullLiteral'
   value: PrimitiveValue | ResolveVariableDeclaration
 }
 
@@ -36,8 +50,15 @@ export type ResolveVariableDeclaration =
   | ArrayExpressionVariableValue
   | null
 
-export function resolveVariableDeclarationValue(node?: ASTNode | null): ResolveVariableDeclaration {
+export function resolveVariableDeclarationValue(node?: ASTNode | null, config?: ScanVariableDeclarationConfig): ResolveVariableDeclaration {
   if (!node)
+    return null
+  const { includeType, excludeType } = config || {}
+  // if not include
+  if (includeType && !includeType.includes(node.type as VariableType))
+    return null
+  // if exclude
+  if (excludeType && excludeType.includes(node.type as VariableType))
     return null
   switch (node.type) {
     case 'StringLiteral':

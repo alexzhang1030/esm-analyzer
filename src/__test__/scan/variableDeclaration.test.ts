@@ -23,3 +23,17 @@ describe('variableDeclaration', () => {
     expect(result).toMatchSnapshot()
   })
 })
+
+describe('variableDeclaration type', () => {
+  test('includeType', () => {
+    const code = `
+      const a = 1
+      const b = '2'
+      let c = true
+      var d = null
+      const foo = ref(1)
+    `
+    const result = loadScanner(code, 'js', [node => scanVariableDeclaration(node, { includeType: ['CallExpression'] })])[0]
+    expect(result).toMatchSnapshot()
+  })
+})

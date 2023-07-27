@@ -208,3 +208,34 @@ exports[`variableDeclaration > primitive 1`] = `
   },
 ]
 `;
+
+exports[`variableDeclaration type > includeType 1`] = `
+[
+  {
+    "init": {
+      "arguments": [
+        {
+          "type": "NumericLiteral",
+          "value": 1,
+        },
+      ],
+      "callee": "ref",
+      "type": "CallExpression",
+    },
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 24,
+        "index": 101,
+        "line": 6,
+      },
+      "start": {
+        "column": 12,
+        "index": 89,
+        "line": 6,
+      },
+    },
+    "name": "foo",
+  },
+]
+`;

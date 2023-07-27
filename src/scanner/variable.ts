@@ -1,4 +1,4 @@
-import type { ResolveVariableDeclaration } from '@/common'
+import type { ResolveVariableDeclaration, VariableType } from '@/common'
 import {
   getASTNodeLocation, isIdentifier,
   isVariableDeclaration, resolveVariableDeclarationValue,
@@ -13,7 +13,12 @@ export interface ScanVariableDeclarationResult {
   init: ResolveVariableDeclaration
 }
 
-export function scanVariableDeclaration(node: ASTNode): ScanVariableDeclarationResult[] | null {
+export interface ScanVariableDeclarationConfig {
+  includeType?: VariableType[]
+  excludeType?: VariableType[]
+}
+
+export function scanVariableDeclaration(node: ASTNode, config?: ScanVariableDeclarationConfig): ScanVariableDeclarationResult[] | null {
   if (!isVariableDeclaration(node))
     return null
   const result: ScanVariableDeclarationResult[] = []
@@ -22,12 +27,15 @@ export function scanVariableDeclaration(node: ASTNode): ScanVariableDeclarationR
     // TODO: handle delay init, e.g. `var` and `let`
     if (!isIdentifier(declaration.id))
       return
-    result.push({
+    const value = {
       loc: getASTNodeLocation(declaration),
       kind: node.kind,
       name: declaration.id.name,
-      init: resolveVariableDeclarationValue(declaration.init),
-    })
+      init: resolveVariableDeclarationValue(declaration.init, config),
+    }
+    if (!value.init)
+      return
+    result.push(value)
   })
   return result
 }
