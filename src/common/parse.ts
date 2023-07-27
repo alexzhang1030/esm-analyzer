@@ -26,7 +26,7 @@ type NonNullable<T> = T extends null | undefined ? never : T
 type LoadScannerReturnType<T extends ((...args: any[]) => any)[]> = NonNullable<ReturnType<T[number]>>[]
 
 export function loadScanners<
-  Func extends (node: ASTNode) => any[] | null = (node: ASTNode) => any[] | null,
+  Func extends (node: ASTNode, ...args: any[]) => any | null = (node: ASTNode, ...args: any[]) => any | null,
   Funcs extends Func[] = Func[],
 >(code: string, lang: string, scanner: Funcs) {
   if (!isAcceptableLang(lang))
@@ -37,8 +37,12 @@ export function loadScanners<
     enter(node) {
       loop(scanner, (scanner, index) => {
         const res = scanner(node)
-        if (res)
-          result[index].push(...res)
+        if (res) {
+          if (Array.isArray(res))
+            result[index].push(...res)
+          else
+            result[index].push(res)
+        }
       })
     },
   })
@@ -46,7 +50,7 @@ export function loadScanners<
 }
 
 export function loadScanner<
-  Func extends (node: ASTNode) => any[] | null = (node: ASTNode) => any[] | null,
+  Func extends (node: ASTNode, ...args: any[]) => any | null = (node: ASTNode, ...args: any[]) => any | null,
   >(code: string, lang: string, scanner: Func) {
   return loadScanners(code, lang, [scanner])[0]
 }

@@ -22,6 +22,7 @@ The scanner and analyzer of ESM.
       - [examples](#examples-1)
       - [the standalone API](#the-standalone-api-1)
       - [config](#config-1)
+  - [Analyzer](#analyzer)
   - [License](#license)
 
 ## Installation
@@ -256,6 +257,10 @@ interface ScanVariableDeclarationConfig {
   excludeType?: VariableType[]
 }
 ```
+
+## Analyzer
+
+Under heavy development...
 
 ## License
 

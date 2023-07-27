@@ -1,0 +1,222 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`scan export > export all 1`] = `
+[
+  {
+    "loc": {
+      "end": {
+        "column": 25,
+        "index": 26,
+        "line": 2,
+      },
+      "start": {
+        "column": 6,
+        "index": 7,
+        "line": 2,
+      },
+    },
+    "source": "foo",
+    "type": "ExportAllDeclaration",
+  },
+  {
+    "loc": {
+      "end": {
+        "column": 27,
+        "index": 54,
+        "line": 3,
+      },
+      "start": {
+        "column": 6,
+        "index": 33,
+        "line": 3,
+      },
+    },
+    "source": "./bar",
+    "type": "ExportAllDeclaration",
+  },
+]
+`;
+
+exports[`scan export > export default 1`] = `
+[
+  {
+    "loc": {
+      "end": {
+        "column": 7,
+        "index": 58,
+        "line": 5,
+      },
+      "start": {
+        "column": 6,
+        "index": 7,
+        "line": 2,
+      },
+    },
+    "properties": [
+      {
+        "key": "a",
+        "value": {
+          "type": "NumericLiteral",
+          "value": 1,
+        },
+      },
+      {
+        "key": "b",
+        "value": {
+          "type": "NumericLiteral",
+          "value": 2,
+        },
+      },
+    ],
+    "subType": "ObjectExpression",
+    "type": "ExportDefaultDeclaration",
+  },
+]
+`;
+
+exports[`scan export > export named 1`] = `
+[
+  {
+    "declarations": [
+      {
+        "init": {
+          "type": "NumericLiteral",
+          "value": 1,
+        },
+        "name": "a",
+      },
+    ],
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 24,
+        "index": 25,
+        "line": 2,
+      },
+      "start": {
+        "column": 6,
+        "index": 7,
+        "line": 2,
+      },
+    },
+    "type": "ExportNamedDeclaration",
+  },
+  {
+    "declarations": [
+      {
+        "init": {
+          "type": "NumericLiteral",
+          "value": 2,
+        },
+        "name": "b",
+      },
+    ],
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 24,
+        "index": 50,
+        "line": 3,
+      },
+      "start": {
+        "column": 6,
+        "index": 32,
+        "line": 3,
+      },
+    },
+    "type": "ExportNamedDeclaration",
+  },
+]
+`;
+
+exports[`scan export pass config > excludeType 1`] = `
+[
+  {
+    "declarations": [
+      {
+        "init": {
+          "type": "NumericLiteral",
+          "value": 1,
+        },
+        "name": "a",
+      },
+    ],
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 24,
+        "index": 25,
+        "line": 2,
+      },
+      "start": {
+        "column": 6,
+        "index": 7,
+        "line": 2,
+      },
+    },
+    "type": "ExportNamedDeclaration",
+  },
+  {
+    "declarations": [
+      {
+        "init": {
+          "type": "NumericLiteral",
+          "value": 2,
+        },
+        "name": "b",
+      },
+    ],
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 24,
+        "index": 50,
+        "line": 3,
+      },
+      "start": {
+        "column": 6,
+        "index": 32,
+        "line": 3,
+      },
+    },
+    "type": "ExportNamedDeclaration",
+  },
+]
+`;
+
+exports[`scan export pass config > includeType 1`] = `
+[
+  {
+    "loc": {
+      "end": {
+        "column": 7,
+        "index": 108,
+        "line": 7,
+      },
+      "start": {
+        "column": 6,
+        "index": 57,
+        "line": 4,
+      },
+    },
+    "properties": [
+      {
+        "key": "a",
+        "value": {
+          "type": "NumericLiteral",
+          "value": 1,
+        },
+      },
+      {
+        "key": "b",
+        "value": {
+          "type": "NumericLiteral",
+          "value": 2,
+        },
+      },
+    ],
+    "subType": "ObjectExpression",
+    "type": "ExportDefaultDeclaration",
+  },
+]
+`;

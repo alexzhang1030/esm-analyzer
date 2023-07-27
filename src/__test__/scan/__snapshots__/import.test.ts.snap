@@ -94,6 +94,7 @@ exports[`pass config > includeSource 1`] = `
 
 exports[`scan import > combine 1`] = `
 {
+  "exports": [],
   "imports": [
     {
       "loc": {
@@ -198,6 +199,7 @@ exports[`scan import > import default 1`] = `
 
 exports[`scan import > import id 1`] = `
 {
+  "exports": [],
   "imports": [
     {
       "imported": "foo",
@@ -326,6 +328,7 @@ exports[`scan import > import namespace 1`] = `
 
 exports[`scan import > import type 1`] = `
 {
+  "exports": [],
   "imports": [
     {
       "imported": "foo1",
