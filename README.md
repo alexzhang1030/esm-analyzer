@@ -5,6 +5,7 @@ The scanner and analyzer of ESM.
 - [esm-analyzer](#esm-analyzer)
   - [Installation](#installation)
   - [Scanner](#scanner)
+    - [cases](#cases)
     - [`lang`](#lang)
     - [`imports` scanner](#imports-scanner)
       - [type definition](#type-definition)
@@ -13,6 +14,7 @@ The scanner and analyzer of ESM.
       - [config](#config)
     - [`variable declarations` scanner](#variable-declarations-scanner)
       - [type definition](#type-definition-1)
+    - [cases](#cases-1)
       - [examples](#examples-1)
       - [the standalone API](#the-standalone-api-1)
       - [config](#config-1)
@@ -33,6 +35,14 @@ import { scan } from 'esm-analyzer'
 
 const { imports, exports } = scan(sourceCode, lang)
 ```
+
+### cases
+
+- [x] import default, e.g. `import foo from 'bar'`
+- [x] import namespace, e.g. `import * as foo from 'bar'`
+- [x] import named, e.g. `import { foo } from 'bar'`
+- [x] import named with alias, e.g. `import { foo as bar } from 'bar'`
+- [x] import type named, e.g. `import type { foo } from 'bar'` or `import { type foo } from 'bar'`
 
 ### `lang`
 
@@ -160,6 +170,21 @@ export interface ScanVariableDeclarationResult {
   init: ResolveVariableDeclaration
 }
 ```
+
+### cases
+
+- ❌ deferred init
+- primitive declaration
+  - ✅ `StringLiteral`
+  - ✅ `NumericLiteral`
+  - ✅ `BooleanLiteral`
+  - ✅ `NullLiteral`
+- complex declaration
+  - ✅ `ObjectExpression`
+  - ✅ `ArrayExpression`
+  - ✅ `CallExpression`
+  - ❗ Others are not supported yet
+
 
 #### examples
 
