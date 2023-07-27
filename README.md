@@ -1,6 +1,6 @@
 # esm-analyzer
 
-The scanner and analyzer of ESM(odule).
+The scanner and analyzer of ESM.
 
 - [esm-analyzer](#esm-analyzer)
   - [Installation](#installation)
