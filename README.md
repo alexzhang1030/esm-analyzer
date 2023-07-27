@@ -1,5 +1,9 @@
 # esm-analyzer
 
+<a href="https://www.npmjs.com/package/esm-analyzer" target="_blank" rel="noopener noreferrer"><img src="https://badgen.net/npm/v/esm-analyzer" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/esm-analyzer" target="_blank" rel="noopener noreferrer"><img src="https://badgen.net/npm/dt/esm-analyzer" alt="NPM Downloads" /></a>
+<a href="https://github.com/alexzhang1030/esm-analyzer/blob/main/LICENSE" target="_blank" rel="noopener noreferrer"><img src="https://badgen.net/github/license/alexzhang1030/esm-analyzer" alt="License" /></a>
+
 The scanner and analyzer of ESM.
 
 - [esm-analyzer](#esm-analyzer)
