@@ -209,6 +209,31 @@ exports[`variableDeclaration > primitive 1`] = `
 ]
 `;
 
+exports[`variableDeclaration > should execute 1`] = `
+[
+  {
+    "init": {
+      "type": "StringLiteral",
+      "value": "bar",
+    },
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 17,
+        "index": 17,
+        "line": 1,
+      },
+      "start": {
+        "column": 6,
+        "index": 6,
+        "line": 1,
+      },
+    },
+    "name": "foo",
+  },
+]
+`;
+
 exports[`variableDeclaration type > includeType 1`] = `
 [
   {

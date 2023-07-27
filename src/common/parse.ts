@@ -23,10 +23,15 @@ export function babelParse(code: string, lang: string) {
 
 type NonNullable<T> = T extends null | undefined ? never : T
 
-export function loadScanner<I, R extends I[]>(code: string, lang: string, scanner: ((node: ASTNode) => R | null)[]) {
+type LoadScannerReturnType<T extends ((...args: any[]) => any)[]> = NonNullable<ReturnType<T[number]>>[]
+
+export function loadScanners<
+  Func extends (node: ASTNode) => any[] | null = (node: ASTNode) => any[] | null,
+  Funcs extends Func[] = Func[],
+>(code: string, lang: string, scanner: Funcs) {
   if (!isAcceptableLang(lang))
     throw new Error(`[ESM Analyzer] Unsupported language: ${lang}`)
-  const result: NonNullable<R>[] = Array.from({ length: scanner.length }).fill(null).map<NonNullable<R>>(() => [] as any)
+  const result = Array.from({ length: scanner.length }).fill(null).map<any>(() => [] as any)
   const ast = babelParse(code, lang)
   walkAST(ast, {
     enter(node) {
@@ -37,5 +42,11 @@ export function loadScanner<I, R extends I[]>(code: string, lang: string, scanne
       })
     },
   })
-  return result
+  return result as LoadScannerReturnType<Funcs>
+}
+
+export function loadScanner<
+  Func extends (node: ASTNode) => any[] | null = (node: ASTNode) => any[] | null,
+  >(code: string, lang: string, scanner: Func) {
+  return loadScanners(code, lang, [scanner])[0]
 }

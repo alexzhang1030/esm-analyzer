@@ -26,7 +26,7 @@ export interface ScanImportResultImport extends ScanResultBase {
   imported: string // imported name
 }
 
-export type ScanImportResultItem = ScanImportResultDefault | ScanImportResultNamespace | ScanImportResultImport
+export type ScanImportResult = ScanImportResultDefault | ScanImportResultNamespace | ScanImportResultImport
 
 // import bar from 'foo'
 function resolveDefaultSpecifier(node: t.ImportDefaultSpecifier) {
@@ -70,13 +70,13 @@ export const defaultConfig: Required<ScanImportConfig> = {
   skipType: false,
 }
 
-export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConfig): ScanImportResultItem[] | null {
+export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConfig): ScanImportResult[] | null {
   if (!isImportDeclaration(node))
     return null
   const items = node.specifiers
   if (!items.length)
     return null
-  const result: ScanImportResultItem[] = []
+  const result: ScanImportResult[] = []
   const source = node.source.value
   if (config.includeSource?.length && !config.includeSource.includes(source))
     return null

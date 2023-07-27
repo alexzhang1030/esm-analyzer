@@ -29,68 +29,66 @@ exports[`pass config > excludeSource 1`] = `
 
 exports[`pass config > includeSource 1`] = `
 [
-  [
-    {
-      "imported": "a",
-      "isType": false,
-      "loc": {
-        "end": {
-          "column": 16,
-          "index": 17,
-          "line": 2,
-        },
-        "start": {
-          "column": 15,
-          "index": 16,
-          "line": 2,
-        },
+  {
+    "imported": "a",
+    "isType": false,
+    "loc": {
+      "end": {
+        "column": 16,
+        "index": 17,
+        "line": 2,
       },
-      "local": "a",
-      "source": "vue",
-      "subType": "id",
-      "type": "import",
-    },
-    {
-      "imported": "c",
-      "isType": false,
-      "loc": {
-        "end": {
-          "column": 16,
-          "index": 79,
-          "line": 4,
-        },
-        "start": {
-          "column": 15,
-          "index": 78,
-          "line": 4,
-        },
+      "start": {
+        "column": 15,
+        "index": 16,
+        "line": 2,
       },
-      "local": "c",
-      "source": "@vueuse/core",
-      "subType": "id",
-      "type": "import",
     },
-    {
-      "imported": "d",
-      "isType": false,
-      "loc": {
-        "end": {
-          "column": 19,
-          "index": 82,
-          "line": 4,
-        },
-        "start": {
-          "column": 18,
-          "index": 81,
-          "line": 4,
-        },
+    "local": "a",
+    "source": "vue",
+    "subType": "id",
+    "type": "import",
+  },
+  {
+    "imported": "c",
+    "isType": false,
+    "loc": {
+      "end": {
+        "column": 16,
+        "index": 79,
+        "line": 4,
       },
-      "local": "d",
-      "source": "@vueuse/core",
-      "subType": "id",
-      "type": "import",
+      "start": {
+        "column": 15,
+        "index": 78,
+        "line": 4,
+      },
     },
-  ],
+    "local": "c",
+    "source": "@vueuse/core",
+    "subType": "id",
+    "type": "import",
+  },
+  {
+    "imported": "d",
+    "isType": false,
+    "loc": {
+      "end": {
+        "column": 19,
+        "index": 82,
+        "line": 4,
+      },
+      "start": {
+        "column": 18,
+        "index": 81,
+        "line": 4,
+      },
+    },
+    "local": "d",
+    "source": "@vueuse/core",
+    "subType": "id",
+    "type": "import",
+  },
 ]
 `;
 
@@ -172,6 +170,7 @@ exports[`scan import > combine 1`] = `
       "type": "import",
     },
   ],
+  "variables": [],
 }
 `;
 
@@ -301,6 +300,7 @@ exports[`scan import > import id 1`] = `
       "type": "import",
     },
   ],
+  "variables": [],
 }
 `;
 
@@ -408,5 +408,6 @@ exports[`scan import > import type 1`] = `
       "type": "import",
     },
   ],
+  "variables": [],
 }
 `;

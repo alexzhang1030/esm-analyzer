@@ -1,4 +1,4 @@
-import { loadScanner } from '@/common'
+import { loadScanner, loadScanners } from '@/common'
 import { scan, scanImport } from '@/scanner'
 
 describe('scan import', () => {
@@ -43,10 +43,10 @@ describe('pass config', () => {
       import { b } from 'react'
       import { c, d, type f } from '@vueuse/core'
     `
-    const result = loadScanner(code, 'ts', [node => scanImport(node, {
+    const result = loadScanner(code, 'ts', node => scanImport(node, {
       includeSource: ['vue', '@vueuse/core'],
       skipType: true,
-    })])
+    }))
     expect(result).toMatchSnapshot()
   })
   test('excludeSource', () => {
@@ -55,7 +55,7 @@ describe('pass config', () => {
       import { b } from 'react'
       import type { c, d } from '@vueuse/core'
     `
-    const result = loadScanner(code, 'ts', [node => scanImport(node, {
+    const result = loadScanners(code, 'ts', [node => scanImport(node, {
       excludeSource: ['vue'],
       skipType: true,
     })])

@@ -107,11 +107,9 @@ Also, you can use the standalone `import` scanner API(with `loadScanner` helper)
 ```ts
 import { loadScanner } from 'esm-analyzer'
 
-const scanners = [
-  node => scanImport(node),
-]
 // the return value is a two dimensional array
-const [importResults] = loadScanner(sourceCode, lang, scanners)
+const importResults = loadScanner(sourceCode, lang, node => scanImport(node),
+)
 ```
 
 #### the import scanner config
@@ -129,6 +127,79 @@ const defaultConfig: Required<ScanImportConfig> = {
   includeSource: [],
   excludeSource: [],
   skipType: false,
+}
+```
+
+### `variable declarations`
+
+The `variable declarations` is an array of `ScanVariableDeclarationResultItem`.
+
+#### type definition
+
+The `ScanVariableDeclarationResultItem` is defined as follows:
+
+```ts
+export interface ScanVariableDeclarationResult {
+  loc: ASTNodeLocation
+  kind: t.VariableDeclaration['kind']
+  name: string
+  init: ResolveVariableDeclaration
+}
+```
+
+#### examples
+
+The basic example:
+
+```ts
+const code = 'const foo = "bar"'
+scan(code, 'js').variableDeclarations
+```
+
+The output will be:
+
+```ts
+[
+  {
+    init: {
+      type: 'StringLiteral',
+      value: 'bar',
+    },
+    kind: 'const',
+    loc: {
+      end: {
+        column: 17,
+        index: 17,
+        line: 1,
+      },
+      start: {
+        column: 6,
+        index: 6,
+        line: 1,
+      },
+    },
+    name: 'foo',
+  },
+]
+```
+
+#### config
+
+The `scanVariableDeclaration` function accepts a config object as the second parameter:
+
+```ts
+export type VariableType =
+  | 'StringLiteral'
+  | 'NumericLiteral'
+  | 'BooleanLiteral'
+  | 'NullLiteral'
+  | 'ObjectExpression'
+  | 'ArrayExpression'
+  | 'CallExpression'
+
+interface ScanVariableDeclarationConfig {
+  includeType?: VariableType[]
+  excludeType?: VariableType[]
 }
 ```
 
