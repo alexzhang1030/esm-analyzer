@@ -157,7 +157,7 @@ const defaultConfig: Required<ScanImportConfig> = {
 
 ### `variable declarations` scanner
 
-The `variable declarations` is an array of `ScanVariableDeclarationResultItem`.
+The `variable declarations` is an array of `ScanVariableDeclarationResult`.
 
 #### cases 
 
@@ -175,7 +175,7 @@ The `variable declarations` is an array of `ScanVariableDeclarationResultItem`.
 
 #### type definition
 
-The `ScanVariableDeclarationResultItem` is defined as follows:
+The `ScanVariableDeclarationResult` is defined as follows:
 
 ```ts
 export interface ScanVariableDeclarationResult {
