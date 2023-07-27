@@ -123,9 +123,7 @@ Also, you can use the standalone `import` scanner API(with `loadScanner` helper)
 ```ts
 import { loadScanner } from 'esm-analyzer'
 
-// the return value is a two dimensional array
-const importResults = loadScanner(sourceCode, lang, node => scanImport(node),
-)
+const importResults = loadScanner(sourceCode, lang, node => scanImport(node))
 ```
 
 #### config 
@@ -206,9 +204,7 @@ Also, you can use the standalone `variable` scanner API(with `loadScanner` helpe
 ```ts
 import { loadScanner } from 'esm-analyzer'
 
-// the return value is a two dimensional array
-const importResults = loadScanner(sourceCode, lang, node => scanVariableDeclaration(node),
-)
+const importResults = loadScanner(sourceCode, lang, node => scanVariableDeclaration(node))
 ```
 
 #### config
