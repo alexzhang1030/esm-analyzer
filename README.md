@@ -2,6 +2,22 @@
 
 The scanner and analyzer of ESM(odule).
 
+- [esm-analyzer](#esm-analyzer)
+  - [Installation](#installation)
+  - [Scanner](#scanner)
+    - [`lang`](#lang)
+    - [`imports` scanner](#imports-scanner)
+      - [type definition](#type-definition)
+      - [examples](#examples)
+      - [the standalone API](#the-standalone-api)
+      - [config](#config)
+    - [`variable declarations` scanner](#variable-declarations-scanner)
+      - [type definition](#type-definition-1)
+      - [examples](#examples-1)
+      - [the standalone API](#the-standalone-api-1)
+      - [config](#config-1)
+  - [License](#license)
+
 ## Installation
 
 ```bash
@@ -29,7 +45,7 @@ It can be one of the following values:
 - `ts`
 - `tsx`
 
-### `imports`
+### `imports` scanner
 
 #### type definition
 
@@ -100,7 +116,7 @@ will be:
 ]
 ```
 
-#### the standalone `import` scanner API
+#### the standalone API
 
 Also, you can use the standalone `import` scanner API(with `loadScanner` helper):
 
@@ -112,7 +128,7 @@ const importResults = loadScanner(sourceCode, lang, node => scanImport(node),
 )
 ```
 
-#### the import scanner config
+#### config 
 
 The `scanImport` function accepts a config object as the second parameter:
 
@@ -130,7 +146,7 @@ const defaultConfig: Required<ScanImportConfig> = {
 }
 ```
 
-### `variable declarations`
+### `variable declarations` scanner
 
 The `variable declarations` is an array of `ScanVariableDeclarationResultItem`.
 
@@ -153,7 +169,7 @@ The basic example:
 
 ```ts
 const code = 'const foo = "bar"'
-scan(code, 'js').variableDeclarations
+scan(code, 'js').variables
 ```
 
 The output will be:
@@ -181,6 +197,18 @@ The output will be:
     name: 'foo',
   },
 ]
+```
+
+#### the standalone API
+
+Also, you can use the standalone `variable` scanner API(with `loadScanner` helper):
+
+```ts
+import { loadScanner } from 'esm-analyzer'
+
+// the return value is a two dimensional array
+const importResults = loadScanner(sourceCode, lang, node => scanVariableDeclaration(node),
+)
 ```
 
 #### config
