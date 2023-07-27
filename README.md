@@ -170,6 +170,7 @@ The `variable declarations` is an array of `ScanVariableDeclarationResult`.
   - ✅ `NumericLiteral`
   - ✅ `BooleanLiteral`
   - ✅ `NullLiteral`
+- ✅ reference declaration
 - complex declaration
   - ✅ `ObjectExpression`
   - ✅ `ArrayExpression`

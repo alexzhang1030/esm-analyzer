@@ -27,6 +27,13 @@ describe('variableDeclaration', () => {
     const result = loadScanner(code, 'js', node => scanVariableDeclaration(node))
     expect(result).toMatchSnapshot()
   })
+  test('identifier', () => {
+    const code = `
+      const foo = bar
+    `
+    const result = loadScanner(code, 'js', node => scanVariableDeclaration(node))
+    expect(result).toMatchSnapshot()
+  })
 })
 
 describe('variableDeclaration type', () => {

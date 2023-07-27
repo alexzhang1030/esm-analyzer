@@ -124,6 +124,31 @@ exports[`variableDeclaration > function call 1`] = `
 ]
 `;
 
+exports[`variableDeclaration > identifier 1`] = `
+[
+  {
+    "init": {
+      "id": "bar",
+      "type": "Identifier",
+    },
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 21,
+        "index": 22,
+        "line": 2,
+      },
+      "start": {
+        "column": 12,
+        "index": 13,
+        "line": 2,
+      },
+    },
+    "name": "foo",
+  },
+]
+`;
+
 exports[`variableDeclaration > primitive 1`] = `
 [
   {

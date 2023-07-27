@@ -11,6 +11,7 @@ export type VariableType =
   | 'ObjectExpression'
   | 'ArrayExpression'
   | 'CallExpression'
+  | 'Identifier'
 
 type PrimitiveValue =
   | Primitive
@@ -43,11 +44,17 @@ export interface CallExpressionVariableValue {
   arguments: ResolveVariableDeclaration[]
 }
 
+export interface IdentifierVariableValue {
+  type: 'Identifier'
+  id: string
+}
+
 export type ResolveVariableDeclaration =
   | PrimitiveVariableValue
   | CallExpressionVariableValue
   | ObjectExpressionVariableValue
   | ArrayExpressionVariableValue
+  | IdentifierVariableValue
   | null
 
 export function resolveVariableDeclarationValue(node?: ASTNode | null, config?: ScanVariableDeclarationConfig): ResolveVariableDeclaration {
@@ -103,6 +110,11 @@ export function resolveVariableDeclarationValue(node?: ASTNode | null, config?: 
         arguments: node.arguments.map((item) => {
           return resolveVariableDeclarationValue(item)
         }),
+      }
+    case 'Identifier':
+      return {
+        type: node.type,
+        id: node.name,
       }
   }
   return null
