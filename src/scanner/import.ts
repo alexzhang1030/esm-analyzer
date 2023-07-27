@@ -78,11 +78,11 @@ export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConf
     return null
   const result: ScanImportResultItem[] = []
   const source = node.source.value
-  const isType = node.importKind === 'type'
   if (config.includeSource?.length && !config.includeSource.includes(source))
     return null
   if (config.excludeSource?.length && config.excludeSource.includes(source))
     return null
+  const isType = node.importKind === 'type'
   if (config.skipType && isType)
     return null
   loop(items, (item) => {

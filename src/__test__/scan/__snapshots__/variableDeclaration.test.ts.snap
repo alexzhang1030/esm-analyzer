@@ -1,0 +1,210 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`variableDeclaration > function call 1`] = `
+[
+  {
+    "init": {
+      "arguments": [
+        {
+          "type": "NumericLiteral",
+          "value": 1,
+        },
+      ],
+      "callee": "ref",
+      "type": "CallExpression",
+    },
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 24,
+        "index": 25,
+        "line": 2,
+      },
+      "start": {
+        "column": 12,
+        "index": 13,
+        "line": 2,
+      },
+    },
+    "name": "foo",
+  },
+  {
+    "init": {
+      "arguments": [
+        null,
+      ],
+      "callee": "computed",
+      "type": "CallExpression",
+    },
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 35,
+        "index": 61,
+        "line": 3,
+      },
+      "start": {
+        "column": 12,
+        "index": 38,
+        "line": 3,
+      },
+    },
+    "name": "bar",
+  },
+  {
+    "init": {
+      "arguments": [
+        {
+          "type": "ObjectExpression",
+          "value": {
+            "a": {
+              "type": "NumericLiteral",
+              "value": 1,
+            },
+          },
+        },
+      ],
+      "callee": "reactive",
+      "type": "CallExpression",
+    },
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 36,
+        "index": 98,
+        "line": 4,
+      },
+      "start": {
+        "column": 12,
+        "index": 74,
+        "line": 4,
+      },
+    },
+    "name": "baz",
+  },
+  {
+    "init": {
+      "arguments": [
+        {
+          "type": "ArrayExpression",
+          "value": [
+            {
+              "type": "NumericLiteral",
+              "value": 1,
+            },
+            {
+              "type": "NumericLiteral",
+              "value": 2,
+            },
+            {
+              "type": "NumericLiteral",
+              "value": 3,
+            },
+          ],
+        },
+      ],
+      "callee": "ref",
+      "type": "CallExpression",
+    },
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 33,
+        "index": 132,
+        "line": 5,
+      },
+      "start": {
+        "column": 12,
+        "index": 111,
+        "line": 5,
+      },
+    },
+    "name": "baz2",
+  },
+]
+`;
+
+exports[`variableDeclaration > primitive 1`] = `
+[
+  {
+    "init": {
+      "type": "NumericLiteral",
+      "value": 1,
+    },
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 17,
+        "index": 18,
+        "line": 2,
+      },
+      "start": {
+        "column": 12,
+        "index": 13,
+        "line": 2,
+      },
+    },
+    "name": "a",
+  },
+  {
+    "init": {
+      "type": "StringLiteral",
+      "value": "2",
+    },
+    "kind": "const",
+    "loc": {
+      "end": {
+        "column": 19,
+        "index": 38,
+        "line": 3,
+      },
+      "start": {
+        "column": 12,
+        "index": 31,
+        "line": 3,
+      },
+    },
+    "name": "b",
+  },
+  {
+    "init": {
+      "type": "BooleanLiteral",
+      "value": true,
+    },
+    "kind": "let",
+    "loc": {
+      "end": {
+        "column": 18,
+        "index": 57,
+        "line": 4,
+      },
+      "start": {
+        "column": 10,
+        "index": 49,
+        "line": 4,
+      },
+    },
+    "name": "c",
+  },
+  {
+    "init": {
+      "type": "NullLiteral",
+      "value": null,
+    },
+    "kind": "var",
+    "loc": {
+      "end": {
+        "column": 18,
+        "index": 76,
+        "line": 5,
+      },
+      "start": {
+        "column": 10,
+        "index": 68,
+        "line": 5,
+      },
+    },
+    "name": "d",
+  },
+]
+`;

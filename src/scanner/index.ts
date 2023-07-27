@@ -19,3 +19,4 @@ export function scan(code: string, lang: AcceptableLang, config: ScanConfig = de
 }
 
 export * from './import'
+export * from './variable'
