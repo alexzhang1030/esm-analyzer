@@ -12,10 +12,20 @@ describe('scan export', () => {
     const result = loadScanner(code, 'js', scanExport)
     expect(result).toMatchSnapshot()
   })
-  test('export named', () => {
+  test('export named declaration', () => {
     const code = `
       export const a = 1
       export const b = 2
+      const c = 3
+    `
+    const result = loadScanner(code, 'js', scanExport)
+    expect(result).toMatchSnapshot()
+  })
+  test('export named specifier', () => {
+    const code = `
+      export { a, b } from 'foo'
+      const c = 3, d = 4
+      export { c, d }
     `
     const result = loadScanner(code, 'js', scanExport)
     expect(result).toMatchSnapshot()

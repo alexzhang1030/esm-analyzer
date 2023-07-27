@@ -74,7 +74,7 @@ exports[`scan export > export default 1`] = `
 ]
 `;
 
-exports[`scan export > export named 1`] = `
+exports[`scan export > export named declaration 1`] = `
 [
   {
     "declarations": [
@@ -99,6 +99,7 @@ exports[`scan export > export named 1`] = `
         "line": 2,
       },
     },
+    "subType": "VariableDeclaration",
     "type": "ExportNamedDeclaration",
   },
   {
@@ -124,6 +125,66 @@ exports[`scan export > export named 1`] = `
         "line": 3,
       },
     },
+    "subType": "VariableDeclaration",
+    "type": "ExportNamedDeclaration",
+  },
+]
+`;
+
+exports[`scan export > export named specifier 1`] = `
+[
+  {
+    "loc": {
+      "end": {
+        "column": 32,
+        "index": 33,
+        "line": 2,
+      },
+      "start": {
+        "column": 6,
+        "index": 7,
+        "line": 2,
+      },
+    },
+    "source": "foo",
+    "specifiers": [
+      {
+        "exported": "a",
+        "local": "a",
+      },
+      {
+        "exported": "b",
+        "local": "b",
+      },
+    ],
+    "subType": "Specifiers",
+    "type": "ExportNamedDeclaration",
+  },
+  {
+    "loc": {
+      "end": {
+        "column": 21,
+        "index": 80,
+        "line": 4,
+      },
+      "start": {
+        "column": 6,
+        "index": 65,
+        "line": 4,
+      },
+    },
+    "source": null,
+    "specifiers": [
+      {
+        "exported": "c",
+        "local": "c",
+      },
+      {
+        "exported": "d",
+        "local": "d",
+      },
+    ],
+    "subType": "Specifiers",
     "type": "ExportNamedDeclaration",
   },
 ]
@@ -154,6 +215,7 @@ exports[`scan export pass config > excludeType 1`] = `
         "line": 2,
       },
     },
+    "subType": "VariableDeclaration",
     "type": "ExportNamedDeclaration",
   },
   {
@@ -179,6 +241,7 @@ exports[`scan export pass config > excludeType 1`] = `
         "line": 3,
       },
     },
+    "subType": "VariableDeclaration",
     "type": "ExportNamedDeclaration",
   },
 ]

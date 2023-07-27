@@ -8,13 +8,24 @@ export type ScanExportType =
   | 'ExportAllDeclaration'
   | 'ExportDefaultDeclaration'
 
-export interface ScanExportNamedResult {
+export interface ScanExportNamedDeclarationResult {
   type: 'ExportNamedDeclaration'
+  subType: 'VariableDeclaration'
   kind: t.VariableDeclaration['kind']
   declarations: {
     name: string
     init: ResolveVariableDeclaration
   }[]
+}
+
+export interface ScanExportNamedSpecifiersResult {
+  type: 'ExportNamedDeclaration'
+  subType: 'Specifiers'
+  specifiers: {
+    local: string
+    exported: string
+  }[]
+  source: string | null
 }
 
 export interface ScanExportAllResult {
@@ -38,7 +49,8 @@ export interface ScanExportDefaultObjectResult {
 }
 
 export type ScanExportResult = (
-  | ScanExportNamedResult
+  | ScanExportNamedDeclarationResult
+  | ScanExportNamedSpecifiersResult
   | ScanExportAllResult
   | ScanExportDefaultIdentifierResult
   | ScanExportDefaultObjectResult
@@ -63,26 +75,48 @@ export function scanExport(node: ASTNode, config?: ScanExportConfig): ScanExport
   if (config?.excludeType && config.excludeType.includes(node.type))
     return null
   if (node.type === 'ExportNamedDeclaration') {
-    if (!node.declaration || node.declaration.type !== 'VariableDeclaration')
-      return null
-    const vars: ScanExportNamedResult['declarations'] = []
-    loop(node.declaration.declarations, (declaration) => {
-      if (!isIdentifier(declaration.id))
-        return
-      const result = {
-        name: declaration.id.name,
-        init: resolveVariableDeclarationValue(declaration.init),
+    if (node.declaration && node.declaration.type === 'VariableDeclaration') {
+      const vars: ScanExportNamedDeclarationResult['declarations'] = []
+      loop(node.declaration.declarations, (declaration) => {
+        if (!isIdentifier(declaration.id))
+          return
+        const result = {
+          name: declaration.id.name,
+          init: resolveVariableDeclarationValue(declaration.init),
+        }
+        if (!result.init)
+          return
+        vars.push(result)
+      })
+      return {
+        type: 'ExportNamedDeclaration',
+        subType: 'VariableDeclaration',
+        declarations: vars,
+        kind: node.declaration.kind,
+        loc: getASTNodeLocation(node),
       }
-      if (!result.init)
-        return
-      vars.push(result)
-    })
-    return {
-      type: 'ExportNamedDeclaration',
-      declarations: vars,
-      kind: node.declaration.kind,
-      loc: getASTNodeLocation(node),
     }
+    if (node.specifiers) {
+      const specifiers: ScanExportNamedSpecifiersResult['specifiers'] = []
+      loop(node.specifiers, (specifier) => {
+        if (specifier.type !== 'ExportSpecifier')
+          return
+        if (!isIdentifier(specifier.local) || !isIdentifier(specifier.exported))
+          return
+        specifiers.push({
+          local: specifier.local.name,
+          exported: specifier.exported.name,
+        })
+      })
+      return {
+        type: 'ExportNamedDeclaration',
+        subType: 'Specifiers',
+        specifiers,
+        source: node.source?.value || null,
+        loc: getASTNodeLocation(node),
+      }
+    }
+    return null
   }
   else if (node.type === 'ExportAllDeclaration') {
     return {

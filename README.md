@@ -22,6 +22,12 @@ The scanner and analyzer of ESM.
       - [examples](#examples-1)
       - [the standalone API](#the-standalone-api-1)
       - [config](#config-1)
+    - [`export` scanner](#export-scanner)
+      - [cases](#cases-2)
+      - [type definition](#type-definition-2)
+      - [examples](#examples-2)
+      - [the standalone API](#the-standalone-api-2)
+      - [config](#config-2)
   - [Analyzer](#analyzer)
   - [License](#license)
 
@@ -255,6 +261,149 @@ export type VariableType =
 interface ScanVariableDeclarationConfig {
   includeType?: VariableType[]
   excludeType?: VariableType[]
+}
+```
+
+### `export` scanner
+
+#### cases
+
+- ✅ export default, e.g. `export default foo`
+- ✅ export named, e.g. `export { foo }`
+  - only support `Identifier` and primitive
+  - functions are not supported yet
+- ✅ export named with alias, e.g. `export { foo as bar }`
+- ✅ export all, e.g. `export * from 'foo'`
+- ❌ export type, e.g. `export type { foo } from 'bar'`
+- ❌ export type named, e.g. `export { type foo } from 'bar'`
+
+#### type definition
+
+The `exports` type is defined as follows, will return `ScanExportResult[]`
+
+```ts
+export interface ScanExportNamedDeclarationResult {
+  type: 'ExportNamedDeclaration'
+  subType: 'VariableDeclaration'
+  kind: t.VariableDeclaration['kind']
+  declarations: {
+    name: string
+    init: ResolveVariableDeclaration
+  }[]
+}
+
+export interface ScanExportNamedSpecifiersResult {
+  type: 'ExportNamedDeclaration'
+  subType: 'Specifiers'
+  specifiers: {
+    local: string
+    exported: string
+  }[]
+  source: string | null
+}
+
+export interface ScanExportAllResult {
+  type: 'ExportAllDeclaration'
+  source: string
+}
+
+export interface ScanExportDefaultIdentifierResult {
+  type: 'ExportDefaultDeclaration'
+  subType: 'Identifier'
+  id: string
+}
+
+export interface ScanExportDefaultObjectResult {
+  type: 'ExportDefaultDeclaration'
+  subType: 'ObjectExpression'
+  properties: {
+    key: string
+    value: ResolveVariableDeclaration
+  }[]
+}
+
+export type ScanExportResult = (
+  | ScanExportNamedDeclarationResult
+  | ScanExportNamedSpecifiersResult
+  | ScanExportAllResult
+  | ScanExportDefaultIdentifierResult
+  | ScanExportDefaultObjectResult
+) & {
+  loc: ASTNodeLocation
+}
+```
+
+#### examples
+
+The basic example:
+
+```ts
+const code = 'export default { a: 1, b: 2 }'
+scan(code, 'js').exports
+```
+
+The result will be:
+
+```ts
+[
+  {
+    loc: {
+      end: {
+        column: 7,
+        index: 58,
+        line: 5,
+      },
+      start: {
+        column: 6,
+        index: 7,
+        line: 2,
+      },
+    },
+    properties: [
+      {
+        key: 'a',
+        value: {
+          type: 'NumericLiteral',
+          value: 1,
+        },
+      },
+      {
+        key: 'b',
+        value: {
+          type: 'NumericLiteral',
+          value: 2,
+        },
+      },
+    ],
+    subType: 'ObjectExpression',
+    type: 'ExportDefaultDeclaration',
+  },
+]
+```
+
+#### the standalone API
+
+Also, you can use the standalone `export` scanner API(with `loadScanner` helper):
+
+```ts
+import { loadScanner } from 'esm-analyzer'
+
+const importResults = loadScanner(sourceCode, lang, node => scanExport(node))
+```
+
+#### config
+
+The `scanExport` function accepts a config object as the second parameter:
+
+```ts
+export type ScanExportType =
+  | 'ExportNamedDeclaration'
+  | 'ExportAllDeclaration'
+  | 'ExportDefaultDeclaration'
+
+interface ScanExportConfig {
+  includeType?: ScanExportType[]
+  excludeType?: ScanExportType[]
 }
 ```
 
