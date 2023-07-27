@@ -40,7 +40,6 @@ import { scan } from 'esm-analyzer'
 const { imports, exports } = scan(sourceCode, lang)
 ```
 
-
 ### `lang`
 
 The `lang` parameter is used to specify the language of the source code.
