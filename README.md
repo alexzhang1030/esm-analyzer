@@ -5,16 +5,16 @@ The scanner and analyzer of ESM.
 - [esm-analyzer](#esm-analyzer)
   - [Installation](#installation)
   - [Scanner](#scanner)
-    - [cases](#cases)
     - [`lang`](#lang)
     - [`imports` scanner](#imports-scanner)
+      - [cases](#cases)
       - [type definition](#type-definition)
       - [examples](#examples)
       - [the standalone API](#the-standalone-api)
       - [config](#config)
     - [`variable declarations` scanner](#variable-declarations-scanner)
-      - [type definition](#type-definition-1)
       - [cases](#cases-1)
+      - [type definition](#type-definition-1)
       - [examples](#examples-1)
       - [the standalone API](#the-standalone-api-1)
       - [config](#config-1)
@@ -36,13 +36,6 @@ import { scan } from 'esm-analyzer'
 const { imports, exports } = scan(sourceCode, lang)
 ```
 
-### cases
-
-- ✅ import default, e.g. `import foo from 'bar'`
-- ✅ import namespace, e.g. `import * as foo from 'bar'`
-- ✅ import named, e.g. `import { foo } from 'bar'`
-- ✅ import named with alias, e.g. `import { foo as bar } from 'bar'`
-- ✅ import type named, e.g. `import type { foo } from 'bar'` or `import { type foo } from 'bar'`
 
 ### `lang`
 
@@ -56,6 +49,14 @@ It can be one of the following values:
 - `tsx`
 
 ### `imports` scanner
+
+#### cases
+
+- ✅ import default, e.g. `import foo from 'bar'`
+- ✅ import namespace, e.g. `import * as foo from 'bar'`
+- ✅ import named, e.g. `import { foo } from 'bar'`
+- ✅ import named with alias, e.g. `import { foo as bar } from 'bar'`
+- ✅ import type named, e.g. `import type { foo } from 'bar'` or `import { type foo } from 'bar'`
 
 #### type definition
 
@@ -158,20 +159,7 @@ const defaultConfig: Required<ScanImportConfig> = {
 
 The `variable declarations` is an array of `ScanVariableDeclarationResultItem`.
 
-#### type definition
-
-The `ScanVariableDeclarationResultItem` is defined as follows:
-
-```ts
-export interface ScanVariableDeclarationResult {
-  loc: ASTNodeLocation
-  kind: t.VariableDeclaration['kind']
-  name: string
-  init: ResolveVariableDeclaration
-}
-```
-
-#### cases
+#### cases 
 
 - ❌ deferred init
 - primitive declaration
@@ -184,6 +172,19 @@ export interface ScanVariableDeclarationResult {
   - ✅ `ArrayExpression`
   - ✅ `CallExpression`
   - ❗ Others are not supported yet
+
+#### type definition
+
+The `ScanVariableDeclarationResultItem` is defined as follows:
+
+```ts
+export interface ScanVariableDeclarationResult {
+  loc: ASTNodeLocation
+  kind: t.VariableDeclaration['kind']
+  name: string
+  init: ResolveVariableDeclaration
+}
+```
 
 
 #### examples
