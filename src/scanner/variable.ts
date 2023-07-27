@@ -1,9 +1,8 @@
-import type { ResolveVariableDeclaration, VariableType } from '@/common'
+import type { ASTNode, ASTNodeLocation, ResolveVariableDeclaration, VariableType, t } from '@/types'
 import {
   getASTNodeLocation, isIdentifier,
   isVariableDeclaration, resolveVariableDeclarationValue,
 } from '@/common'
-import type { ASTNode, ASTNodeLocation, t } from '@/types'
 import { loop } from '@/utils'
 
 export interface ScanVariableDeclarationResult {

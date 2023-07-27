@@ -1,61 +1,6 @@
-import type { Primitive } from 'type-fest'
 import type { ScanVariableDeclarationConfig } from '..'
 import { isIdentifier } from './ast'
-import type { ASTNode } from '@/types'
-
-export type VariableType =
-  | 'StringLiteral'
-  | 'NumericLiteral'
-  | 'BooleanLiteral'
-  | 'NullLiteral'
-  | 'ObjectExpression'
-  | 'ArrayExpression'
-  | 'CallExpression'
-  | 'Identifier'
-
-type PrimitiveValue =
-  | Primitive
-  | null | undefined
-
-export interface PrimitiveVariableValue {
-  type:
-  | 'StringLiteral'
-  | 'NumericLiteral'
-  | 'BooleanLiteral'
-  | 'NullLiteral'
-  value: PrimitiveValue | ResolveVariableDeclaration
-}
-
-export interface ObjectExpressionVariableValue {
-  type: 'ObjectExpression'
-  value: {
-    [key: string]: ResolveVariableDeclaration
-  }
-}
-
-export interface ArrayExpressionVariableValue {
-  type: 'ArrayExpression'
-  value: ResolveVariableDeclaration[]
-}
-
-export interface CallExpressionVariableValue {
-  type: 'CallExpression'
-  callee: string
-  arguments: ResolveVariableDeclaration[]
-}
-
-export interface IdentifierVariableValue {
-  type: 'Identifier'
-  id: string
-}
-
-export type ResolveVariableDeclaration =
-  | PrimitiveVariableValue
-  | CallExpressionVariableValue
-  | ObjectExpressionVariableValue
-  | ArrayExpressionVariableValue
-  | IdentifierVariableValue
-  | null
+import type { ASTNode, ObjectExpressionVariableValue, ResolveVariableDeclaration, VariableType } from '@/types'
 
 export function resolveVariableDeclarationValue(node?: ASTNode | null, config?: ScanVariableDeclarationConfig): ResolveVariableDeclaration {
   if (!node)

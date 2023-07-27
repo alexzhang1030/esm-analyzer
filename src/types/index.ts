@@ -1,5 +1,6 @@
 import type { Node } from '@babel/types'
 import type { WalkerContext } from 'estree-walker/types/walker'
+import type { Primitive } from 'type-fest'
 
 export type ASTNode = Node
 export type * as t from '@babel/types'
@@ -23,3 +24,57 @@ export interface ASTNodeLocation {
     index: number
   }
 }
+
+export type VariableType =
+  | 'StringLiteral'
+  | 'NumericLiteral'
+  | 'BooleanLiteral'
+  | 'NullLiteral'
+  | 'ObjectExpression'
+  | 'ArrayExpression'
+  | 'CallExpression'
+  | 'Identifier'
+
+type PrimitiveValue =
+  | Primitive
+  | null | undefined
+
+export interface PrimitiveVariableValue {
+  type:
+  | 'StringLiteral'
+  | 'NumericLiteral'
+  | 'BooleanLiteral'
+  | 'NullLiteral'
+  value: PrimitiveValue | ResolveVariableDeclaration
+}
+
+export interface ObjectExpressionVariableValue {
+  type: 'ObjectExpression'
+  value: {
+    [key: string]: ResolveVariableDeclaration
+  }
+}
+
+export interface ArrayExpressionVariableValue {
+  type: 'ArrayExpression'
+  value: ResolveVariableDeclaration[]
+}
+
+export interface CallExpressionVariableValue {
+  type: 'CallExpression'
+  callee: string
+  arguments: ResolveVariableDeclaration[]
+}
+
+export interface IdentifierVariableValue {
+  type: 'Identifier'
+  id: string
+}
+
+export type ResolveVariableDeclaration =
+  | PrimitiveVariableValue
+  | CallExpressionVariableValue
+  | ObjectExpressionVariableValue
+  | ArrayExpressionVariableValue
+  | IdentifierVariableValue
+  | null
