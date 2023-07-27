@@ -38,11 +38,11 @@ const { imports, exports } = scan(sourceCode, lang)
 
 ### cases
 
-- [x] import default, e.g. `import foo from 'bar'`
-- [x] import namespace, e.g. `import * as foo from 'bar'`
-- [x] import named, e.g. `import { foo } from 'bar'`
-- [x] import named with alias, e.g. `import { foo as bar } from 'bar'`
-- [x] import type named, e.g. `import type { foo } from 'bar'` or `import { type foo } from 'bar'`
+- ✅ import default, e.g. `import foo from 'bar'`
+- ✅ import namespace, e.g. `import * as foo from 'bar'`
+- ✅ import named, e.g. `import { foo } from 'bar'`
+- ✅ import named with alias, e.g. `import { foo as bar } from 'bar'`
+- ✅ import type named, e.g. `import type { foo } from 'bar'` or `import { type foo } from 'bar'`
 
 ### `lang`
 
