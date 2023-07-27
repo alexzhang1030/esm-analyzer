@@ -1,6 +1,6 @@
 {
   "name": "esm-analyzer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "packageManager": "pnpm@8.6.10",
   "description": "The scanner and analyzer of ESM(odule).",
   "author": "alexzhang1030",
