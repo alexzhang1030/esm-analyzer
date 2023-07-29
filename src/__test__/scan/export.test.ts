@@ -1,4 +1,4 @@
-import { loadScanner } from '@/common'
+import { loadScanner } from '@/scanner'
 import { scanExport } from '@/scanner/export'
 
 describe('scan export', () => {

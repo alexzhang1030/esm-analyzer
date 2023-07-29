@@ -10,3 +10,11 @@ export function loop<T>(
     index++
   }
 }
+
+export function rangeLoop(len: number, cb: (i: number) => unknown | void) {
+  let index = 0
+  while (index < len) {
+    cb(index)
+    index++
+  }
+}

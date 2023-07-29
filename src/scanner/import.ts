@@ -119,3 +119,7 @@ export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConf
   })
   return result
 }
+
+export function getImportByName(name: string, imports: ScanImportResult[]) {
+  return imports.find(item => item.type === 'import' && item.imported === name) ?? null
+}

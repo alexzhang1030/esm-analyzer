@@ -151,3 +151,19 @@ export function scanExport(node: ASTNode, config?: ScanExportConfig): ScanExport
   }
   return null
 }
+
+export function getExportByName(name: string, exportsStmt: ScanExportResult[]) {
+  return exportsStmt.find((item) => {
+    if (item.type === 'ExportNamedDeclaration') {
+      if (item.subType === 'VariableDeclaration')
+        return item.declarations.some(declaration => declaration.name === name)
+
+      else if (item.subType === 'Specifiers')
+        return item.specifiers.some(specifier => specifier.exported === name)
+    }
+    else if (item.type === 'ExportDefaultDeclaration') {
+      return item.subType === 'Identifier' && item.id === name
+    }
+    return null
+  })
+}

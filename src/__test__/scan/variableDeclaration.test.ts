@@ -1,4 +1,4 @@
-import { loadScanner } from '@/common'
+import { loadScanner } from '@/scanner'
 import { scanVariableDeclaration } from '@/scanner/variable'
 
 describe('variableDeclaration', () => {

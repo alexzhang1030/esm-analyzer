@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`project > find the location of bar 1`] = `
+{
+  "end": {
+    "column": 30,
+    "index": 31,
+    "line": 2,
+  },
+  "start": {
+    "column": 6,
+    "index": 7,
+    "line": 2,
+  },
+}
+`;
