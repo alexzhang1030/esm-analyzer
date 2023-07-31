@@ -87,28 +87,28 @@ export function getTargetNodeByPath(path: string, node: TreeNodeItem) {
   }
 }
 
-interface Primitive extends PrimitiveVariableValue {
+export interface AnalyzePrimitive extends PrimitiveVariableValue {
 }
 
-interface Identifier extends IdentifierVariableValue {
+export interface AnalyzeIdentifier extends IdentifierVariableValue {
   fromImport: ScanImportResult | null
   fromExport: ScanExportResult | null
   importFile: string | null
 }
 
-interface CallExpression extends CallExpressionVariableValue {
+export interface AnalyzeCallExpression extends CallExpressionVariableValue {
   calleeFrom: ScanImportResult | null
 }
 
-interface ArrayExpression extends ArrayExpressionVariableValue {
+export interface AnalyzeArrayExpression extends ArrayExpressionVariableValue {
   values: AnalyzeResultType[]
 }
 
-interface ObjectExpression extends ObjectExpressionVariableValue {
+export interface AnalyzeObjectExpression extends ObjectExpressionVariableValue {
   values: AnalyzeResultType[]
 }
 
-type AnalyzeResultType = Primitive | Identifier | CallExpression | ArrayExpression | ObjectExpression
+export type AnalyzeResultType = AnalyzePrimitive | AnalyzeIdentifier | AnalyzeCallExpression | AnalyzeArrayExpression | AnalyzeObjectExpression
 
 export class Analyzer {
   #node: TreeNodeItem
@@ -147,7 +147,7 @@ export class Analyzer {
       const values = Object.entries(init.value).reduce((result, [key, value]) => {
         result[key] = this.#getScanResult(value)
         return result
-      }, {} as ObjectExpression['value'])
+      }, {} as AnalyzeObjectExpression['value'])
       return {
         ...init,
         values,
