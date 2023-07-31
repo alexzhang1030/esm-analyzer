@@ -21,6 +21,6 @@ describe('project', () => {
     p.addFile(code2.filename, code2.code)
     await p.prepare()
     const c = p.findAnalyzeResults(code2.filename)
-    expect(c).toMatchSnapshot()
+    expect(Array.from(c!.entries())).toMatchSnapshot()
   })
 })

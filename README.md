@@ -409,7 +409,168 @@ interface ScanExportConfig {
 
 ## Analyzer
 
-Under heavy development...
+use `analyze` you can find all the `variable declarations` and their `import statement` and `export statement`
+
+```ts
+const code1 = {
+  filename: '/src/bar.js',
+  code: `
+      export const bar = 'bar'
+    `,
+}
+const code2 = {
+  filename: '/src/foo.js',
+  code: `
+      import { bar, ref } from './bar'
+      export const foo = bar
+      const foo2 = ref(1)
+    `,
+}
+const p = new Project('test')
+p.addFile(code1.filename, code1.code)
+p.addFile(code2.filename, code2.code)
+await p.prepare()
+const c = p.findAnalyzeResults(code2.filename)
+expect(c).toMatchSnapshot()
+```
+
+The result is `map`, and it's entries is:
+
+```ts
+[
+  [
+    {
+      init: {
+        id: 'bar',
+        type: 'Identifier',
+      },
+      kind: 'const',
+      loc: {
+        end: {
+          column: 28,
+          index: 68,
+          line: 3,
+        },
+        start: {
+          column: 19,
+          index: 59,
+          line: 3,
+        },
+      },
+      name: 'foo',
+    },
+    {
+      fromExport: {
+        declarations: [
+          {
+            init: {
+              type: 'StringLiteral',
+              value: 'bar',
+            },
+            name: 'bar',
+          },
+        ],
+        kind: 'const',
+        loc: {
+          end: {
+            column: 30,
+            index: 31,
+            line: 2,
+          },
+          start: {
+            column: 6,
+            index: 7,
+            line: 2,
+          },
+        },
+        subType: 'VariableDeclaration',
+        type: 'ExportNamedDeclaration',
+      },
+      fromImport: {
+        imported: 'bar',
+        isType: false,
+        loc: {
+          end: {
+            column: 18,
+            index: 19,
+            line: 2,
+          },
+          start: {
+            column: 15,
+            index: 16,
+            line: 2,
+          },
+        },
+        local: 'bar',
+        source: './bar',
+        subType: 'id',
+        type: 'import',
+      },
+      id: 'bar',
+      importFile: '/src/bar.js',
+      type: 'Identifier',
+    },
+  ],
+  [
+    {
+      init: {
+        arguments: [
+          {
+            type: 'NumericLiteral',
+            value: 1,
+          },
+        ],
+        callee: 'ref',
+        type: 'CallExpression',
+      },
+      kind: 'const',
+      loc: {
+        end: {
+          column: 25,
+          index: 94,
+          line: 4,
+        },
+        start: {
+          column: 12,
+          index: 81,
+          line: 4,
+        },
+      },
+      name: 'foo2',
+    },
+    {
+      arguments: [
+        {
+          type: 'NumericLiteral',
+          value: 1,
+        },
+      ],
+      callee: 'ref',
+      calleeFrom: {
+        imported: 'ref',
+        isType: false,
+        loc: {
+          end: {
+            column: 23,
+            index: 24,
+            line: 2,
+          },
+          start: {
+            column: 20,
+            index: 21,
+            line: 2,
+          },
+        },
+        local: 'ref',
+        source: './bar',
+        subType: 'id',
+        type: 'import',
+      },
+      type: 'CallExpression',
+    },
+  ],
+]
+```
 
 ## License
 
