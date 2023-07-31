@@ -154,10 +154,10 @@ export class Analyzer {
       }
     }
     else if (init.type === 'CallExpression') {
-      const result = this.findImportLocation(init.callee)
+      const calleeFrom = this.findImportByIdentifyName(init.callee)
       return {
         ...init,
-        calleeFrom: result?.fromImport ?? null,
+        calleeFrom,
       }
     }
     else {
