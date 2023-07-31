@@ -41,7 +41,7 @@
     "estree-walker": "^2.0.2",
     "mitt": "^3.0.1",
     "p-limit": "^4.0.0",
-    "to-path-tree": "^0.1.6"
+    "to-path-tree": "^0.2.0"
   },
   "devDependencies": {
     "@antfu/eslint-config-ts": "^0.39.8",

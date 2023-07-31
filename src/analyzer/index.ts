@@ -1,9 +1,10 @@
-import mitt from 'mitt'
 import pLimit from 'p-limit'
 import type { NodeItem } from 'to-path-tree'
 import { pathToTree, walkPathTree } from 'to-path-tree'
 import type { AcceptableLang, ScanExportResult, ScanImportResult, ScanVariableDeclarationResult } from '..'
 import { scan } from '..'
+import { Progress } from './progress'
+import { Analyzer } from './analyze'
 import { getLangByFileName, isAcceptableLang } from '@/common'
 import { loop } from '@/utils'
 
@@ -26,16 +27,14 @@ interface MapData {
     lang: AcceptableLang
   }
   referToNode?: TreeNodeItem
+  analyzer?: Analyzer
 }
 
 export class Project {
   #name: string
   #mapping: Map</* _absolute_ file name */string, MapData> = new Map()
 
-  #progress = 0
-  #mitt = mitt<{
-    progress: number
-  }>()
+  #progress = new Progress()
 
   get name() {
     return this.#name
@@ -43,11 +42,6 @@ export class Project {
 
   constructor(name: string) {
     this.#name = name
-  }
-
-  #emitProgress(progress: number) {
-    this.#progress = progress
-    this.#mitt.emit('progress', progress)
   }
 
   #scanFile(code: string, lang: AcceptableLang) {
@@ -69,16 +63,18 @@ export class Project {
         lang,
       },
     })
+    this.#progress.addProgress(2) // 1 for scan, 1 for analyze
   }
 
   onProgress(callback: (progress: number) => void) {
-    this.#mitt.on('progress', callback)
+    this.#progress.onProgress(callback)
   }
 
   async prepare() {
     const codes = this.#mapping.entries()
     const filepaths = Array.from(codes, ([filename]) => filename)
-    const tasks: (() => Promise<void>)[] = []
+    const scanTasks: (() => Promise<void>)[] = []
+    const analyzeTasks: (() => Promise<void>)[] = []
     const tree = pathToTree<TreeNodeData>(filepaths, {
       getData: (node) => {
         return {
@@ -91,18 +87,29 @@ export class Project {
       loop(node.items, (item) => {
         const { data, ext } = item
         const { code } = data!
-        tasks.push(limit(() => {
+        let node: MapData
+        scanTasks.push(limit(() => {
           const r = this.#scanFile(code, ext as AcceptableLang)
-          this.#emitProgress(this.#progress + 1)
           item.data!.scan = r
-          this.#mapping.get(item.path)!.referToNode = item
+          const targetNode = node = this.#mapping.get(item.path)!
+          targetNode.referToNode = item
+          targetNode.analyzer = new Analyzer(item, r)
+          this.#progress.reduce()
+        }) as any)
+        scanTasks.push(limit(() => {
+          node.analyzer!.analyze()
         }) as any)
       })
     })
-    await Promise.all(tasks)
+    await Promise.all(scanTasks)
+    await Promise.all(analyzeTasks)
   }
 
   getTreeNode(filename: string) {
-    return this.#mapping.get(filename)!.referToNode
+    return this.#mapping.get(filename)?.referToNode
+  }
+
+  findAnalyzeResults(filename: string) {
+    return this.#mapping.get(filename)?.analyzer?.getResults()
   }
 }
