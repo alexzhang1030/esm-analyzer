@@ -94,10 +94,11 @@ export class Project {
           const targetNode = node = this.#mapping.get(item.path)!
           targetNode.referToNode = item
           targetNode.analyzer = new Analyzer(item, r)
-          this.#progress.reduce()
+          this.#progress.increment()
         }) as any)
         scanTasks.push(limit(() => {
           node.analyzer!.analyze()
+          this.#progress.increment()
         }) as any)
       })
     })

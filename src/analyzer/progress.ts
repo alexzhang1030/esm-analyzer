@@ -19,7 +19,7 @@ export class Progress {
     this.#emitter.on('progress', callback)
   }
 
-  reduce() {
+  increment() {
     this.#progress++
     this.#emitter.emit('progress', Number(this.#calcProgress()))
   }
