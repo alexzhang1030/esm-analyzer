@@ -5,7 +5,7 @@ import type { AcceptableLang, ScanExportResult, ScanImportResult, ScanVariableDe
 import { scan } from '..'
 import { Progress } from './progress'
 import { Analyzer } from './analyze'
-import { getLangByFileName, isAcceptableLang } from '@/common'
+import { getLangByFileName } from '@/common'
 import { loop } from '@/utils'
 
 const limit = pLimit(10)
@@ -72,11 +72,7 @@ export class Project {
    * @param fileCode
    */
   addFile(fileName: string, fileCode: string, fileLang?: AcceptableLang) {
-    if (!isAcceptableLang(fileName))
-      throw new Error(`File name "${fileName}" is not acceptable.`)
     const lang = fileLang ?? getLangByFileName(fileName)
-    // eslint-disable-next-line no-console
-    console.log('-----------------------', lang)
     this.#mapping.set(fileName, {
       source: {
         code: fileCode,
