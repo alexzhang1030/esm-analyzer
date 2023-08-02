@@ -20,7 +20,33 @@ describe('project', () => {
     p.addFile(code1.filename, code1.code)
     p.addFile(code2.filename, code2.code)
     await p.prepare()
-    const c = p.findAnalyzeResults(code2.filename)
+    const c = p.getAnalyzeResults(code2.filename)
     expect(Array.from(c!.entries())).toMatchSnapshot()
+  })
+  test('third part module', async () => {
+    const p = new Project('test')
+    p.addFile('/src/foo.js', `
+      import { bar } from 'lodash'
+      export const foo = bar
+    `)
+    await p.prepare()
+    const c = p.getAnalyzeResults('/src/foo.js')
+    expect(Array.from(c!.entries())).toMatchSnapshot()
+  })
+  test('pass config', async () => {
+    const p = new Project('test')
+    p.addFile('/src/foo.js', `
+      import { bar } from 'lodash'
+      const foo = bar('1')
+      const qux = 2
+    `)
+    await p.prepare({
+      variables: {
+        type: ['CallExpression'],
+        importFrom: ['vue'],
+      },
+    })
+    const c = p.getAnalyzeResults('/src/foo.js')
+    expect(c).toMatchSnapshot()
   })
 })

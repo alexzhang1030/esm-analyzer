@@ -72,6 +72,7 @@ exports[`project > find variable locations 1`] = `
       },
       "id": "bar",
       "importFile": "/src/bar.js",
+      "importType": "file",
       "type": "Identifier",
     },
   ],
@@ -131,6 +132,41 @@ exports[`project > find variable locations 1`] = `
         "type": "import",
       },
       "type": "CallExpression",
+    },
+  ],
+]
+`;
+
+exports[`project > pass config 1`] = `Map {}`;
+
+exports[`project > third part module 1`] = `
+[
+  [
+    {
+      "init": {
+        "id": "bar",
+        "type": "Identifier",
+      },
+      "kind": "const",
+      "loc": {
+        "end": {
+          "column": 28,
+          "index": 64,
+          "line": 3,
+        },
+        "start": {
+          "column": 19,
+          "index": 55,
+          "line": 3,
+        },
+      },
+      "name": "foo",
+    },
+    {
+      "id": "bar",
+      "importModule": "lodash",
+      "importType": "module",
+      "type": "Identifier",
     },
   ],
 ]

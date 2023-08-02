@@ -1,5 +1,11 @@
 import type { TreeNode } from 'to-path-tree'
-import type { ArrayExpressionVariableValue, CallExpressionVariableValue, IdentifierVariableValue, ObjectExpressionVariableValue, PrimitiveVariableValue, ResolveVariableDeclaration, ScanExportResult, ScanImportResult, ScanVariableDeclarationResult } from '..'
+import type {
+  ArrayExpressionVariableValue,
+  CallExpressionVariableValue, IdentifierVariableValue,
+  ObjectExpressionVariableValue, PrimitiveVariableValue,
+  ResolveVariableDeclaration, ScanExportResult,
+  ScanImportResult, ScanVariableDeclarationResult,
+} from '..'
 import { getExportByName, getImportByName } from '..'
 import type { TreeNodeData, TreeNodeItem } from '.'
 import { loop, rangeLoop } from '@/utils'
@@ -50,21 +56,30 @@ function getLastImport(path: string) {
   return LAST_IMPORT_REG.exec(path)?.[1] ?? null
 }
 
+function buildImportFileResult(node: TreeNodeItem | null) {
+  return {
+    type: 'importFile' as const,
+    node,
+  }
+}
+
 // ../foo/bar
-export function getTargetNodeByPath(path: string, node: TreeNodeItem) {
+export function getTargetNodeByPath(path: string, node: TreeNodeItem): ReturnType<typeof buildImportFileResult> | null | { type: 'importModule'; importModule: string } {
   if (path === '.')
-    return findTheEntry(node)
+    return buildImportFileResult(findTheEntry(node))
   if (path === '..')
-    return findTheParentEntry(node.parent)
+    return buildImportFileResult(findTheParentEntry(node.parent))
   if (isNotPath(path)) {
-    // TODO: resolve: is import from node_modules
-    return null
+    return {
+      type: 'importModule',
+      importModule: path,
+    }
   }
   // ./foo or ./../foo
   if (path.startsWith('./')) {
     path = path.slice(2)
     if (isNotPath(path))
-      return findSibling(node, path)
+      return buildImportFileResult(findSibling(node, path))
     if (path.startsWith('../')) {
       const resultNode = processParentPath(path, node)
       if (!resultNode)
@@ -72,7 +87,7 @@ export function getTargetNodeByPath(path: string, node: TreeNodeItem) {
       const importName = getLastImport(path)
       if (!importName)
         return null
-      return findChildren(resultNode, importName)
+      return buildImportFileResult(findChildren(resultNode, importName))
     }
   }
   // ../foo or ../../foo
@@ -83,8 +98,9 @@ export function getTargetNodeByPath(path: string, node: TreeNodeItem) {
     const importName = getLastImport(path)
     if (!importName)
       return null
-    return findChildren(resultNode, importName)
+    return buildImportFileResult(findChildren(resultNode, importName))
   }
+  return null
 }
 
 export interface AnalyzePrimitive extends PrimitiveVariableValue {
@@ -110,6 +126,10 @@ export interface AnalyzeObjectExpression extends ObjectExpressionVariableValue {
 
 export type AnalyzeResultType = AnalyzePrimitive | AnalyzeIdentifier | AnalyzeCallExpression | AnalyzeArrayExpression | AnalyzeObjectExpression
 
+interface AnalyzeConfig {
+  importFrom: string[]
+}
+
 export class Analyzer {
   #node: TreeNodeItem
   #scanData: TreeNodeData['scan']
@@ -118,9 +138,14 @@ export class Analyzer {
     AnalyzeResultType
   > = new Map()
 
-  constructor(node: TreeNodeItem, stmts: TreeNodeData['scan']) {
+  #analyzeConfig?: {
+    importFrom: string[]
+  }
+
+  constructor(node: TreeNodeItem, stmts: TreeNodeData['scan'], config?: AnalyzeConfig) {
     this.#node = node
     this.#scanData = stmts
+    this.#analyzeConfig = config
   }
 
   #getScanResult(init: ResolveVariableDeclaration) {
@@ -128,12 +153,25 @@ export class Analyzer {
       return null
     if (init.type === 'Identifier') {
       const result = this.findImportLocation(init.id)
-      return {
-        type: init.type,
-        fromImport: result?.fromImport ?? null,
-        fromExport: result?.fromExport ?? null,
-        importFile: result?.importFile ?? null,
-        id: init.id,
+      if (!result)
+        return null
+      if (result.type === 'importModule') {
+        return {
+          importType: 'module',
+          type: init.type,
+          importModule: result.importModule,
+          id: init.id,
+        }
+      }
+      else {
+        return {
+          importType: 'file',
+          type: init.type,
+          fromImport: result?.fromImport ?? null,
+          fromExport: result?.fromExport ?? null,
+          importFile: result?.importFile ?? null,
+          id: init.id,
+        }
       }
     }
     else if (init.type === 'ArrayExpression') {
@@ -154,6 +192,9 @@ export class Analyzer {
       }
     }
     else if (init.type === 'CallExpression') {
+      const importFrom = this.#analyzeConfig?.importFrom
+      if (importFrom && !importFrom.includes(init.callee))
+        return null
       const calleeFrom = this.findImportByIdentifyName(init.callee)
       return {
         ...init,
@@ -174,6 +215,7 @@ export class Analyzer {
   }
 
   findImportLocation(name: string) {
+    const importFrom = this.#analyzeConfig?.importFrom
     // 1. find all import statements
     const imports = this.#node.data?.scan.imports
     if (!imports)
@@ -183,19 +225,33 @@ export class Analyzer {
     const source = importStmt?.source
     if (!source)
       return null
+    if (importFrom && !importFrom.includes(source))
+      return null
     // 3. get target node by path
-    const targetNode = getTargetNodeByPath(source, this.#node)
+    const result = getTargetNodeByPath(source, this.#node)
     // 4. get export statement
-    if (!targetNode)
+    if (!result)
       return null
-    const exportStmt = targetNode.data!.scan.exports
-    const exportNode = getExportByName(name, exportStmt)
-    if (!exportNode)
-      return null
-    return {
-      importFile: targetNode.path,
-      fromImport: importStmt,
-      fromExport: exportNode,
+    if (result.type === 'importModule') {
+      return {
+        type: 'importModule',
+        importModule: result.importModule,
+      }
+    }
+    else {
+      const node = result.node
+      if (!node)
+        return null
+      const exportStmt = node.data!.scan.exports
+      const exportNode = getExportByName(name, exportStmt)
+      if (!exportNode)
+        return null
+      return {
+        type: 'importFile',
+        importFile: node.path,
+        fromImport: importStmt,
+        fromExport: exportNode,
+      }
     }
   }
 

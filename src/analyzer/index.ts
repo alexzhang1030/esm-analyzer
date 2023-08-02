@@ -1,7 +1,7 @@
 import pLimit from 'p-limit'
 import type { NodeItem } from 'to-path-tree'
 import { pathToTree, walkPathTree } from 'to-path-tree'
-import type { AcceptableLang, ScanExportResult, ScanImportResult, ScanVariableDeclarationResult } from '..'
+import type { AcceptableLang, ScanExportResult, ScanImportResult, ScanVariableDeclarationResult, VariableType } from '..'
 import { scan } from '..'
 import { Progress } from './progress'
 import { Analyzer } from './analyze'
@@ -30,9 +30,20 @@ interface MapData {
   analyzer?: Analyzer
 }
 
+export interface PrepareConfig {
+  variables: {
+    type?: VariableType[]
+    importFrom?: string[]
+  }
+}
+
 export class Project {
   #name: string
   #mapping: Map</* _absolute_ file name */string, MapData> = new Map()
+  #filePaths: string[] = []
+  #config: {
+    prepare?: PrepareConfig
+  } = {}
 
   #progress = new Progress()
 
@@ -45,7 +56,14 @@ export class Project {
   }
 
   #scanFile(code: string, lang: AcceptableLang) {
-    return scan(code, lang)
+    const type = this.#config.prepare?.variables.type
+    return scan(code, lang, type
+      ? {
+          variable: {
+            includeType: type,
+          },
+        }
+      : undefined)
   }
 
   /**
@@ -64,18 +82,19 @@ export class Project {
       },
     })
     this.#progress.addProgress(2) // 1 for scan, 1 for analyze
+    this.#filePaths.push(fileName)
   }
 
   onProgress(callback: (progress: number) => void) {
     this.#progress.onProgress(callback)
   }
 
-  async prepare() {
-    const codes = this.#mapping.entries()
-    const filepaths = Array.from(codes, ([filename]) => filename)
+  async prepare(config?: PrepareConfig) {
+    this.#config.prepare = config
+    const importFrom = config?.variables.importFrom
     const scanTasks: (() => Promise<void>)[] = []
     const analyzeTasks: (() => Promise<void>)[] = []
-    const tree = pathToTree<TreeNodeData>(filepaths, {
+    const tree = pathToTree<TreeNodeData>(this.#filePaths, {
       getData: (node) => {
         return {
           code: this.#mapping.get(node.path)!.source.code,
@@ -93,10 +112,10 @@ export class Project {
           item.data!.scan = r
           const targetNode = node = this.#mapping.get(item.path)!
           targetNode.referToNode = item
-          targetNode.analyzer = new Analyzer(item, r)
+          targetNode.analyzer = new Analyzer(item, r, importFrom ? { importFrom } : undefined)
           this.#progress.increment()
         }) as any)
-        scanTasks.push(limit(() => {
+        analyzeTasks.push(limit(() => {
           node.analyzer!.analyze()
           this.#progress.increment()
         }) as any)
@@ -110,7 +129,7 @@ export class Project {
     return this.#mapping.get(filename)?.referToNode
   }
 
-  findAnalyzeResults(filename: string) {
+  getAnalyzeResults(filename: string) {
     return this.#mapping.get(filename)?.analyzer?.getResults()
   }
 }
