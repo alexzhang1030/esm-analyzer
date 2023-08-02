@@ -141,3 +141,5 @@ export class Project {
     return this.#filePaths
   }
 }
+
+export * from './analyze'

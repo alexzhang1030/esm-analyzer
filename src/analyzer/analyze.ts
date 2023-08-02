@@ -126,7 +126,7 @@ export interface AnalyzeObjectExpression extends ObjectExpressionVariableValue {
 
 export type AnalyzeResultType = AnalyzePrimitive | AnalyzeIdentifier | AnalyzeCallExpression | AnalyzeArrayExpression | AnalyzeObjectExpression
 
-interface AnalyzeConfig {
+export interface AnalyzeConfig {
   importFrom: string[]
 }
 
