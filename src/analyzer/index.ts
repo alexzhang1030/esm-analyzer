@@ -132,4 +132,12 @@ export class Project {
   getAnalyzeResults(filename: string) {
     return this.#mapping.get(filename)?.analyzer?.getResults()
   }
+
+  getMapping() {
+    return this.#mapping
+  }
+
+  getFilePaths() {
+    return this.#filePaths
+  }
 }
