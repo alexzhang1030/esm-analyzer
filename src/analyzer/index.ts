@@ -92,8 +92,7 @@ export class Project {
   async prepare(config?: PrepareConfig) {
     this.#config.prepare = config
     const importFrom = config?.variables.importFrom
-    const scanTasks: (() => Promise<void>)[] = []
-    const analyzeTasks: (() => Promise<void>)[] = []
+    const tasks: (() => Promise<void>)[] = []
     const tree = pathToTree<TreeNodeData>(this.#filePaths, {
       getData: (node) => {
         return {
@@ -106,23 +105,19 @@ export class Project {
       loop(node.items, (item) => {
         const { data, ext } = item
         const { code } = data!
-        let node: MapData
-        scanTasks.push(limit(() => {
+        tasks.push(limit(() => {
           const r = this.#scanFile(code, ext as AcceptableLang)
           item.data!.scan = r
-          const targetNode = node = this.#mapping.get(item.path)!
+          const targetNode = this.#mapping.get(item.path)!
           targetNode.referToNode = item
           targetNode.analyzer = new Analyzer(item, r, importFrom ? { importFrom } : undefined)
           this.#progress.increment()
-        }) as any)
-        analyzeTasks.push(limit(() => {
-          node.analyzer!.analyze()
+          targetNode.analyzer?.analyze()
           this.#progress.increment()
         }) as any)
       })
     })
-    await Promise.all(scanTasks)
-    await Promise.all(analyzeTasks)
+    await Promise.all(tasks)
   }
 
   getTreeNode(filename: string) {
