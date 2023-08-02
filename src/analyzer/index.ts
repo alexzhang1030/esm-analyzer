@@ -71,10 +71,10 @@ export class Project {
    * @param fileName must be **absolute** file name
    * @param fileCode
    */
-  addFile(fileName: string, fileCode: string) {
+  addFile(fileName: string, fileCode: string, fileLang?: AcceptableLang) {
     if (!isAcceptableLang(fileName))
       throw new Error(`File name "${fileName}" is not acceptable.`)
-    const lang = getLangByFileName(fileName)
+    const lang = fileLang ?? getLangByFileName(fileName)
     this.#mapping.set(fileName, {
       source: {
         code: fileCode,
