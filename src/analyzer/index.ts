@@ -103,12 +103,12 @@ export class Project {
     })
     walkPathTree(tree, (node) => {
       loop(node.items, (item) => {
-        const { data, ext } = item
+        const { data } = item
         const { code } = data!
         tasks.push(limit(() => {
-          const r = this.#scanFile(code, ext as AcceptableLang)
-          item.data!.scan = r
           const targetNode = this.#mapping.get(item.path)!
+          const r = this.#scanFile(code, targetNode.source.lang)
+          item.data!.scan = r
           targetNode.referToNode = item
           targetNode.analyzer = new Analyzer(item, r, importFrom ? { importFrom } : undefined)
           this.#progress.increment()
