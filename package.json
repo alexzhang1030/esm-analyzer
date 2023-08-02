@@ -1,6 +1,6 @@
 {
   "name": "esm-analyzer",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "packageManager": "pnpm@8.6.10",
   "description": "The scanner and analyzer of ESM.",
   "author": "alexzhang1030",
