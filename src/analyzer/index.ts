@@ -75,6 +75,8 @@ export class Project {
     if (!isAcceptableLang(fileName))
       throw new Error(`File name "${fileName}" is not acceptable.`)
     const lang = fileLang ?? getLangByFileName(fileName)
+    // eslint-disable-next-line no-console
+    console.log('-----------------------', lang)
     this.#mapping.set(fileName, {
       source: {
         code: fileCode,
