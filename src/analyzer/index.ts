@@ -5,7 +5,7 @@ import type { AcceptableLang, ScanExportResult, ScanImportResult, ScanVariableDe
 import { scan } from '..'
 import { Progress } from './progress'
 import { Analyzer } from './analyze'
-import { getLangByFileName } from '@/common'
+import { getLangByFileName, isAcceptableLang } from '@/common'
 import { loop } from '@/utils'
 
 const limit = pLimit(10)
@@ -73,6 +73,8 @@ export class Project {
    */
   addFile(fileName: string, fileCode: string, fileLang?: AcceptableLang) {
     const lang = fileLang ?? getLangByFileName(fileName)
+    if (!isAcceptableLang(lang))
+      throw new Error(`[ESM Analyzer] Unsupported language: ${lang}`)
     this.#mapping.set(fileName, {
       source: {
         code: fileCode,

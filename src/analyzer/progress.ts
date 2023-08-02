@@ -25,6 +25,6 @@ export class Progress {
   }
 
   addProgress(count: number) {
-    this.#progress += count
+    this.#totalTasksCount += count
   }
 }
