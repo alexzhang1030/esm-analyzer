@@ -85,6 +85,12 @@ export class Project {
     this.#filePaths.push(fileName)
   }
 
+  addFiles(files: { path: string; code: string; lang?: AcceptableLang }[]) {
+    loop(files, (file) => {
+      this.addFile(file.path, file.code, file.lang)
+    })
+  }
+
   onProgress(callback: (progress: number) => void) {
     this.#progress.onProgress(callback)
   }
