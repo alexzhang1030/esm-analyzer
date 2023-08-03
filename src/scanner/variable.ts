@@ -17,7 +17,7 @@ export interface ScanVariableDeclarationConfig {
   excludeType?: VariableType[]
 }
 
-export function scanVariableDeclaration(node: ASTNode, config?: ScanVariableDeclarationConfig): ScanVariableDeclarationResult[] | null {
+export function scanVariableDeclaration(node: ASTNode, config?: ScanVariableDeclarationConfig, offsetContent: string = ''): ScanVariableDeclarationResult[] | null {
   if (!isVariableDeclaration(node))
     return null
   const result: ScanVariableDeclarationResult[] = []
@@ -27,7 +27,7 @@ export function scanVariableDeclaration(node: ASTNode, config?: ScanVariableDecl
     if (!isIdentifier(declaration.id))
       return
     const value = {
-      loc: getASTNodeLocation(declaration),
+      loc: getASTNodeLocation(declaration, offsetContent),
       kind: node.kind,
       name: declaration.id.name,
       init: resolveVariableDeclarationValue(declaration.init, config),

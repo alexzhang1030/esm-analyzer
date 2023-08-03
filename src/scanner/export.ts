@@ -62,7 +62,7 @@ export interface ScanExportConfig {
   excludeType?: ScanExportType[]
 }
 
-export function scanExport(node: ASTNode, config?: ScanExportConfig): ScanExportResult | null {
+export function scanExport(node: ASTNode, config?: ScanExportConfig, offsetContent?: string): ScanExportResult | null {
   if (
     !isExportNamedDeclaration(node)
     && !isExportDefaultDeclaration(node)
@@ -92,7 +92,7 @@ export function scanExport(node: ASTNode, config?: ScanExportConfig): ScanExport
         subType: 'VariableDeclaration',
         declarations: vars,
         kind: node.declaration.kind,
-        loc: getASTNodeLocation(node),
+        loc: getASTNodeLocation(node, offsetContent),
       }
     }
     if (node.specifiers) {
@@ -112,7 +112,7 @@ export function scanExport(node: ASTNode, config?: ScanExportConfig): ScanExport
         subType: 'Specifiers',
         specifiers,
         source: node.source?.value || null,
-        loc: getASTNodeLocation(node),
+        loc: getASTNodeLocation(node, offsetContent),
       }
     }
     return null
@@ -121,7 +121,7 @@ export function scanExport(node: ASTNode, config?: ScanExportConfig): ScanExport
     return {
       type: 'ExportAllDeclaration',
       source: node.source.value,
-      loc: getASTNodeLocation(node),
+      loc: getASTNodeLocation(node, offsetContent),
     }
   }
   else {
@@ -130,14 +130,14 @@ export function scanExport(node: ASTNode, config?: ScanExportConfig): ScanExport
         type: 'ExportDefaultDeclaration',
         subType: 'Identifier',
         id: node.declaration.name,
-        loc: getASTNodeLocation(node),
+        loc: getASTNodeLocation(node, offsetContent),
       }
     }
     else if (node.declaration.type === 'ObjectExpression') {
       return {
         type: 'ExportDefaultDeclaration',
         subType: 'ObjectExpression',
-        loc: getASTNodeLocation(node),
+        loc: getASTNodeLocation(node, offsetContent),
         properties: node.declaration.properties.map((property) => {
           if (property.type !== 'ObjectProperty' || !isIdentifier(property.key))
             return null

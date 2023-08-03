@@ -25,6 +25,7 @@ interface MapData {
   source: {
     code: string
     lang: AcceptableLang
+    offsetContent: string
   }
   referToNode?: TreeNodeItem
   analyzer?: Analyzer
@@ -55,7 +56,7 @@ export class Project {
     this.#name = name
   }
 
-  #scanFile(code: string, lang: AcceptableLang) {
+  #scanFile(code: string, lang: AcceptableLang, offsetContent?: string) {
     const type = this.#config.prepare?.variables.type
     return scan(code, lang, type
       ? {
@@ -63,7 +64,7 @@ export class Project {
             includeType: type,
           },
         }
-      : undefined)
+      : undefined, offsetContent)
   }
 
   /**
@@ -71,7 +72,7 @@ export class Project {
    * @param fileName must be **absolute** file name
    * @param fileCode
    */
-  addFile(fileName: string, fileCode: string, fileLang?: AcceptableLang) {
+  addFile(fileName: string, fileCode: string, fileLang: AcceptableLang = 'js', offsetContent = '') {
     const lang = fileLang ?? getLangByFileName(fileName)
     if (!isAcceptableLang(lang))
       throw new Error(`[ESM Analyzer] Unsupported language: ${lang}`)
@@ -79,13 +80,14 @@ export class Project {
       source: {
         code: fileCode,
         lang,
+        offsetContent,
       },
     })
     this.#progress.addProgress(2) // 1 for scan, 1 for analyze
     this.#filePaths.push(fileName)
   }
 
-  addFiles(files: { path: string; code: string; lang?: AcceptableLang }[]) {
+  addFiles(files: { path: string; code: string; lang?: AcceptableLang; offset?: number }[]) {
     loop(files, (file) => {
       this.addFile(file.path, file.code, file.lang)
     })
@@ -113,7 +115,7 @@ export class Project {
         const { code } = data!
         tasks.push(limit(() => {
           const targetNode = this.#mapping.get(item.path)!
-          const r = this.#scanFile(code, targetNode.source.lang)
+          const r = this.#scanFile(code, targetNode.source.lang, targetNode.source.offsetContent)
           item.data!.scan = r
           targetNode.referToNode = item
           targetNode.analyzer = new Analyzer(item, r, importFrom ? { importFrom } : undefined)

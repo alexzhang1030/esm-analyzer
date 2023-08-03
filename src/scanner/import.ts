@@ -62,15 +62,17 @@ export interface ScanImportConfig {
   includeSource?: string[]
   excludeSource?: string[]
   skipType?: boolean
+  offset?: number
 }
 
 export const defaultConfig: Required<ScanImportConfig> = {
   includeSource: [],
   excludeSource: [],
   skipType: false,
+  offset: 0,
 }
 
-export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConfig): ScanImportResult[] | null {
+export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConfig, offsetContent: string = ''): ScanImportResult[] | null {
   if (!isImportDeclaration(node))
     return null
   const items = node.specifiers
@@ -91,7 +93,7 @@ export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConf
         type: 'default',
         source,
         local: resolveDefaultSpecifier(item),
-        loc: getASTNodeLocation(item),
+        loc: getASTNodeLocation(item, offsetContent),
       })
     }
     else if (item.type === 'ImportNamespaceSpecifier') {
@@ -99,7 +101,7 @@ export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConf
         type: 'namespace',
         source,
         local: resolveNamespaceSpecifier(item),
-        loc: getASTNodeLocation(item),
+        loc: getASTNodeLocation(item, offsetContent),
       })
     }
     else if (item.type === 'ImportSpecifier') {
@@ -108,7 +110,7 @@ export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConf
         return
       result.push({
         type: 'import',
-        loc: getASTNodeLocation(item),
+        loc: getASTNodeLocation(item, offsetContent),
         source,
         imported,
         local,

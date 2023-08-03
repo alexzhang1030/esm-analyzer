@@ -49,3 +49,31 @@ describe('variableDeclaration type', () => {
     expect(result).toMatchSnapshot()
   })
 })
+
+describe('offset', () => {
+  const code = 'const a = 1'
+  test('no offset', () => {
+    const result = loadScanner(code, 'js', node => scanVariableDeclaration(node, {}))
+    expect(result[0].loc.start).toStrictEqual({
+      line: 1,
+      column: 6,
+      index: 6,
+    })
+  })
+  test('offset with no wrap line', () => {
+    const result = loadScanner(code, 'js', node => scanVariableDeclaration(node, {}, '123456'))
+    expect(result[0].loc.start).toStrictEqual({
+      line: 1,
+      column: 6 + 6,
+      index: 6 + 6,
+    })
+  })
+  test('offset with wrap line', () => {
+    const result = loadScanner(code, 'js', node => scanVariableDeclaration(node, {}, '123456\n'))
+    expect(result[0].loc.start).toStrictEqual({
+      line: 1 + 1,
+      column: 6,
+      index: 6 + 6 + 1,
+    })
+  })
+})

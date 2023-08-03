@@ -49,11 +49,11 @@ interface ScanConfig {
   export?: ScanExportConfig
 }
 
-export function scan(code: string, lang: AcceptableLang, config?: ScanConfig) {
+export function scan(code: string, lang: AcceptableLang, config?: ScanConfig, offsetContent = '') {
   const [imports, variables, exports] = loadScanners(code, lang, [
-    node => scanImport(node, config?.import),
-    node => scanVariableDeclaration(node, config?.variable),
-    node => scanExport(node, config?.export),
+    node => scanImport(node, config?.import, offsetContent),
+    node => scanVariableDeclaration(node, config?.variable, offsetContent),
+    node => scanExport(node, config?.export, offsetContent),
   ])
   return {
     imports,

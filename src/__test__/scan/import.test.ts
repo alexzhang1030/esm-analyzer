@@ -61,3 +61,39 @@ describe('pass config', () => {
     expect(result).toMatchSnapshot()
   })
 })
+
+describe('offset', () => {
+  const code = 'import { a } from \'vue\''
+  test('no offset', () => {
+    const result = loadScanner(code, 'ts', node => scanImport(node, {}))
+    expect(result[0].loc.start).toStrictEqual({
+      line: 1,
+      column: 9,
+      index: 9,
+    })
+  })
+  test('offset with no wrap line', () => {
+    const result = loadScanner(code, 'ts', node => scanImport(node, {}, '123456'))
+    expect(result[0].loc.start).toStrictEqual({
+      line: 1,
+      column: 9 + 6,
+      index: 9 + 6,
+    })
+  })
+  test('offset with wrap line', () => {
+    const result = loadScanner(code, 'ts', node => scanImport(node, {}, '123456\n'))
+    expect(result[0].loc.start).toStrictEqual({
+      line: 1 + 1,
+      column: 9,
+      index: 9 + 6 + 1,
+    })
+  })
+  test('offset with multiple wrap line', () => {
+    const result = loadScanner(code, 'ts', node => scanImport(node, {}, '123456\n123456\n123456\n'))
+    expect(result[0].loc.start).toStrictEqual({
+      line: 1 + 1 * 3,
+      column: 9,
+      index: 9 + (6 + 1) * 3,
+    })
+  })
+})

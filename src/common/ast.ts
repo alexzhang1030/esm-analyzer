@@ -8,19 +8,28 @@ export function walkAST(node: ASTNode, handlers: {
   return walk(node, handlers)
 }
 
-export function getASTNodeLocation(node: ASTNode): ASTNodeLocation {
+function withOffsetContent(offsetContent: string, d: { line: number; column: number; index: number }) {
+  if (!offsetContent.length)
+    return d
+  const lines = offsetContent.split('\n')
+  const numNewlines = lines.length - 1
+  if (numNewlines > 0)
+    d.line += numNewlines
+  else
+    d.column += offsetContent.length
+  return {
+    line: d.line,
+    column: d.column,
+    index: d.index + offsetContent.length,
+  }
+}
+
+// offset accepts offsetContent and offset number
+export function getASTNodeLocation(node: ASTNode, offsetContent: string = ''): ASTNodeLocation {
   const { start: _s, end: _e } = node.loc!
   return {
-    start: {
-      line: _s.line,
-      column: _s.column,
-      index: node.start!,
-    },
-    end: {
-      line: _e.line,
-      column: _e.column,
-      index: node.end!,
-    },
+    start: withOffsetContent(offsetContent, { ..._s, index: node.start! }),
+    end: withOffsetContent(offsetContent, { ..._e, index: node.end! }),
   }
 }
 
