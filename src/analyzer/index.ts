@@ -87,9 +87,9 @@ export class Project {
     this.#filePaths.push(fileName)
   }
 
-  addFiles(files: { path: string; code: string; lang?: AcceptableLang; offset?: number }[]) {
+  addFiles(files: { path: string; code: string; lang?: AcceptableLang; offsetContent?: string }[]) {
     loop(files, (file) => {
-      this.addFile(file.path, file.code, file.lang)
+      this.addFile(file.path, file.code, file.lang, file.offsetContent)
     })
   }
 
