@@ -1,7 +1,7 @@
 {
   "name": "esm-analyzer",
   "version": "0.3.5",
-  "packageManager": "pnpm@8.7.0",
+  "packageManager": "pnpm@8.7.1",
   "description": "The scanner and analyzer of ESM.",
   "author": "alexzhang1030",
   "license": "MIT",
@@ -37,7 +37,7 @@
     "release": "vitest run && bumpp --commit \"chore: release v%s\" --push --tag && pnpm publish"
   },
   "dependencies": {
-    "@babel/parser": "^7.22.11",
+    "@babel/parser": "^7.22.14",
     "estree-walker": "^2.0.2",
     "mitt": "^3.0.1",
     "p-limit": "^4.0.0",
