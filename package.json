@@ -1,7 +1,7 @@
 {
   "name": "esm-analyzer",
   "version": "0.3.5",
-  "packageManager": "pnpm@8.10.0",
+  "packageManager": "pnpm@8.10.2",
   "description": "The scanner and analyzer of ESM.",
   "author": "alexzhang1030",
   "license": "MIT",
@@ -47,7 +47,7 @@
     "@antfu/eslint-config-ts": "^0.43.1",
     "@babel/types": "^7.23.0",
     "bumpp": "^9.2.0",
-    "eslint": "^8.52.0",
+    "eslint": "^8.53.0",
     "lint-staged": "^15.0.2",
     "simple-git-hooks": "^2.9.0",
     "tsup": "^7.2.0",
