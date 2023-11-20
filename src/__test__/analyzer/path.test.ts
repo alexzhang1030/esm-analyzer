@@ -1,7 +1,7 @@
 import { isNotPath } from '@/analyzer/analyze'
 
 describe('path', () => {
-  test.each([
+  it.each([
     ['./', false],
     ['a', true],
     ['b', true],

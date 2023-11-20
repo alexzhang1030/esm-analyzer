@@ -1,7 +1,9 @@
 import type { ASTNode, ASTNodeLocation, ResolveVariableDeclaration, VariableType, t } from '@/types'
 import {
-  getASTNodeLocation, isIdentifier,
-  isVariableDeclaration, resolveVariableDeclarationValue,
+  getASTNodeLocation,
+  isIdentifier,
+  isVariableDeclaration,
+  resolveVariableDeclarationValue,
 } from '@/common'
 import { loop } from '@/utils'
 

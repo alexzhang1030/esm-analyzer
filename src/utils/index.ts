@@ -1,5 +1,6 @@
 export function loop<T>(
-  items: T[], cb: (item: T, i: number) => unknown | void,
+  items: T[],
+  cb: (item: T, i: number) => unknown | void,
   range: [number, number] = [0, items.length],
 ) {
   let index = range[0]

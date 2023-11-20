@@ -41,10 +41,10 @@ type PrimitiveValue =
 
 export interface PrimitiveVariableValue {
   type:
-  | 'StringLiteral'
-  | 'NumericLiteral'
-  | 'BooleanLiteral'
-  | 'NullLiteral'
+    | 'StringLiteral'
+    | 'NumericLiteral'
+    | 'BooleanLiteral'
+    | 'NullLiteral'
   value: PrimitiveValue | ResolveVariableDeclaration
 }
 

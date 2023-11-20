@@ -1,15 +1,15 @@
 import { loadScanner, loadScanners, scan, scanImport } from '@/scanner'
 
 describe('scan import', () => {
-  test('import default', () => {
+  it('import default', () => {
     const code = 'import foo from \'bar\''
     expect(scan(code, 'js').imports).toMatchSnapshot()
   })
-  test('import namespace', () => {
+  it('import namespace', () => {
     const code = 'import * as foo from \'bar\''
     expect(scan(code, 'js').imports[0]).toMatchSnapshot()
   })
-  test('import id', () => {
+  it('import id', () => {
     const code = `
       import { foo, foo1 as foo2, "foo3" as foo4 } from 'bar'
       import { bar1 as bar2 } from 'bar'
@@ -17,7 +17,7 @@ describe('scan import', () => {
     `
     expect(scan(code, 'js')).toMatchSnapshot()
   })
-  test('combine', () => {
+  it('combine', () => {
     const code = `
       import foo from 'bar'
       import * as foo2 from 'bar1'
@@ -26,7 +26,7 @@ describe('scan import', () => {
     `
     expect(scan(code, 'js')).toMatchSnapshot()
   })
-  test('import type', () => {
+  it('import type', () => {
     const code = `
       import type { foo1, foo2 } from 'foo'
       import { type foo3, foo4_real }  from 'bar'
@@ -36,7 +36,7 @@ describe('scan import', () => {
 })
 
 describe('pass config', () => {
-  test('includeSource', () => {
+  it('includeSource', () => {
     const code = `
       import { a } from 'vue'
       import { b } from 'react'
@@ -48,7 +48,7 @@ describe('pass config', () => {
     }))
     expect(result).toMatchSnapshot()
   })
-  test('excludeSource', () => {
+  it('excludeSource', () => {
     const code = `
       import { a } from 'vue'
       import { b } from 'react'
@@ -64,7 +64,7 @@ describe('pass config', () => {
 
 describe('offset', () => {
   const code = 'import { a } from \'vue\''
-  test('no offset', () => {
+  it('no offset', () => {
     const result = loadScanner(code, 'ts', node => scanImport(node, {}))
     expect(result[0].loc.start).toStrictEqual({
       line: 1,
@@ -72,7 +72,7 @@ describe('offset', () => {
       index: 9,
     })
   })
-  test('offset with no wrap line', () => {
+  it('offset with no wrap line', () => {
     const result = loadScanner(code, 'ts', node => scanImport(node, {}, '123456'))
     expect(result[0].loc.start).toStrictEqual({
       line: 1,
@@ -80,7 +80,7 @@ describe('offset', () => {
       index: 9 + 6,
     })
   })
-  test('offset with wrap line', () => {
+  it('offset with wrap line', () => {
     const result = loadScanner(code, 'ts', node => scanImport(node, {}, '123456\n'))
     expect(result[0].loc.start).toStrictEqual({
       line: 1 + 1,
@@ -88,7 +88,7 @@ describe('offset', () => {
       index: 9 + 6 + 1,
     })
   })
-  test('offset with multiple wrap line', () => {
+  it('offset with multiple wrap line', () => {
     const result = loadScanner(code, 'ts', node => scanImport(node, {}, '123456\n123456\n123456\n'))
     expect(result[0].loc.start).toStrictEqual({
       line: 1 + 1 * 3,

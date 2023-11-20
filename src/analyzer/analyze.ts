@@ -1,10 +1,14 @@
 import type { TreeNode } from 'to-path-tree'
 import type {
   ArrayExpressionVariableValue,
-  CallExpressionVariableValue, IdentifierVariableValue,
-  ObjectExpressionVariableValue, PrimitiveVariableValue,
-  ResolveVariableDeclaration, ScanExportResult,
-  ScanImportResult, ScanVariableDeclarationResult,
+  CallExpressionVariableValue,
+  IdentifierVariableValue,
+  ObjectExpressionVariableValue,
+  PrimitiveVariableValue,
+  ResolveVariableDeclaration,
+  ScanExportResult,
+  ScanImportResult,
+  ScanVariableDeclarationResult,
 } from '..'
 import { getExportByName, getImportByName } from '..'
 import type { TreeNodeData, TreeNodeItem } from '.'
@@ -64,7 +68,7 @@ function buildImportFileResult(node: TreeNodeItem | null) {
 }
 
 // ../foo/bar
-export function getTargetNodeByPath(path: string, node: TreeNodeItem): ReturnType<typeof buildImportFileResult> | null | { type: 'importModule'; importModule: string } {
+export function getTargetNodeByPath(path: string, node: TreeNodeItem): ReturnType<typeof buildImportFileResult> | null | { type: 'importModule', importModule: string } {
   if (path === '.')
     return buildImportFileResult(findTheEntry(node))
   if (path === '..')

@@ -1,5 +1,6 @@
 {
   "name": "esm-analyzer",
+  "type": "module",
   "version": "0.3.5",
   "packageManager": "pnpm@8.10.3",
   "description": "The scanner and analyzer of ESM.",
@@ -18,12 +19,12 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -44,7 +45,7 @@
     "to-path-tree": "^0.2.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config-ts": "^0.43.1",
+    "@antfu/eslint-config": "^2.0.0",
     "@babel/types": "^7.23.3",
     "bumpp": "^9.2.0",
     "eslint": "^8.53.0",
@@ -59,11 +60,8 @@
     "pre-commit": "pnpm exec lint-staged"
   },
   "lint-staged": {
-    "*.{js,ts,json,md,yaml,yml}": [
+    "*": [
       "eslint --fix"
     ]
-  },
-  "eslintConfig": {
-    "extends": "@antfu/eslint-config-ts"
   }
 }

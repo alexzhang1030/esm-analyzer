@@ -2,7 +2,7 @@ import { loadScanner } from '@/scanner'
 import { scanExport } from '@/scanner/export'
 
 describe('scan export', () => {
-  test('export default', () => {
+  it('export default', () => {
     const code = `
       export default {
         a: 1,
@@ -12,7 +12,7 @@ describe('scan export', () => {
     const result = loadScanner(code, 'js', scanExport)
     expect(result).toMatchSnapshot()
   })
-  test('export named declaration', () => {
+  it('export named declaration', () => {
     const code = `
       export const a = 1
       export const b = 2
@@ -21,7 +21,7 @@ describe('scan export', () => {
     const result = loadScanner(code, 'js', scanExport)
     expect(result).toMatchSnapshot()
   })
-  test('export named specifier', () => {
+  it('export named specifier', () => {
     const code = `
       export { a, b } from 'foo'
       const c = 3, d = 4
@@ -30,7 +30,7 @@ describe('scan export', () => {
     const result = loadScanner(code, 'js', scanExport)
     expect(result).toMatchSnapshot()
   })
-  test('export all', () => {
+  it('export all', () => {
     const code = `
       export * from 'foo'
       export * from './bar'
@@ -41,7 +41,7 @@ describe('scan export', () => {
 })
 
 describe('scan export pass config', () => {
-  test('includeType', () => {
+  it('includeType', () => {
     const code = `
       export const a = 1
       export const b = 2
@@ -55,7 +55,7 @@ describe('scan export pass config', () => {
     }))
     expect(result).toMatchSnapshot()
   })
-  test('excludeType', () => {
+  it('excludeType', () => {
     const code = `
       export const a = 1
       export const b = 2
@@ -73,7 +73,7 @@ describe('scan export pass config', () => {
 
 describe('offset', () => {
   const code = 'export const a = 1'
-  test('no offset', () => {
+  it('no offset', () => {
     const result = loadScanner(code, 'js', node => scanExport(node, {}))
     expect(result[0].loc.start).toStrictEqual({
       line: 1,
@@ -81,7 +81,7 @@ describe('offset', () => {
       index: 0,
     })
   })
-  test('offset with no wrap line', () => {
+  it('offset with no wrap line', () => {
     const result = loadScanner(code, 'js', node => scanExport(node, {}, '123456'))
     expect(result[0].loc.start).toStrictEqual({
       line: 1,
@@ -89,7 +89,7 @@ describe('offset', () => {
       index: 6,
     })
   })
-  test('offset with wrap line', () => {
+  it('offset with wrap line', () => {
     const result = loadScanner(code, 'js', node => scanExport(node, {}, '123456\n'))
     expect(result[0].loc.start).toStrictEqual({
       line: 1 + 1,

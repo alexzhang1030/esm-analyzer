@@ -2,12 +2,12 @@ import { loadScanner } from '@/scanner'
 import { scanVariableDeclaration } from '@/scanner/variable'
 
 describe('variableDeclaration', () => {
-  test('should execute', () => {
+  it('should execute', () => {
     const code = 'const foo = "bar"'
     const result = loadScanner(code, 'js', node => scanVariableDeclaration(node))
     expect(result).toMatchSnapshot()
   })
-  test('primitive', () => {
+  it('primitive', () => {
     const code = `
       const a = 1
       const b = '2'
@@ -17,7 +17,7 @@ describe('variableDeclaration', () => {
     const result = loadScanner(code, 'js', node => scanVariableDeclaration(node))
     expect(result).toMatchSnapshot()
   })
-  test('function call', () => {
+  it('function call', () => {
     const code = `
       const foo = ref(1)
       const bar = computed(() => 1)
@@ -27,7 +27,7 @@ describe('variableDeclaration', () => {
     const result = loadScanner(code, 'js', node => scanVariableDeclaration(node))
     expect(result).toMatchSnapshot()
   })
-  test('identifier', () => {
+  it('identifier', () => {
     const code = `
       const foo = bar
     `
@@ -37,7 +37,7 @@ describe('variableDeclaration', () => {
 })
 
 describe('variableDeclaration type', () => {
-  test('includeType', () => {
+  it('includeType', () => {
     const code = `
       const a = 1
       const b = '2'
@@ -52,7 +52,7 @@ describe('variableDeclaration type', () => {
 
 describe('offset', () => {
   const code = 'const a = 1'
-  test('no offset', () => {
+  it('no offset', () => {
     const result = loadScanner(code, 'js', node => scanVariableDeclaration(node, {}))
     expect(result[0].loc.start).toStrictEqual({
       line: 1,
@@ -60,7 +60,7 @@ describe('offset', () => {
       index: 6,
     })
   })
-  test('offset with no wrap line', () => {
+  it('offset with no wrap line', () => {
     const result = loadScanner(code, 'js', node => scanVariableDeclaration(node, {}, '123456'))
     expect(result[0].loc.start).toStrictEqual({
       line: 1,
@@ -68,7 +68,7 @@ describe('offset', () => {
       index: 6 + 6,
     })
   })
-  test('offset with wrap line', () => {
+  it('offset with wrap line', () => {
     const result = loadScanner(code, 'js', node => scanVariableDeclaration(node, {}, '123456\n'))
     expect(result[0].loc.start).toStrictEqual({
       line: 1 + 1,

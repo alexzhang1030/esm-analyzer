@@ -8,7 +8,7 @@ export function walkAST(node: ASTNode, handlers: {
   return walk(node, handlers)
 }
 
-function withOffsetContent(offsetContent: string, d: { line: number; column: number; index: number }) {
+function withOffsetContent(offsetContent: string, d: { line: number, column: number, index: number }) {
   if (!offsetContent.length)
     return d
   const lines = offsetContent.split('\n')
