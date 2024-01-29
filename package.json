@@ -2,7 +2,7 @@
   "name": "esm-analyzer",
   "type": "module",
   "version": "0.3.6",
-  "packageManager": "pnpm@8.14.1",
+  "packageManager": "pnpm@8.15.0",
   "description": "The scanner and analyzer of ESM.",
   "author": "alexzhang1030",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "release": "vitest run && bumpp --commit \"chore: release v%s\" --push --tag && pnpm publish"
   },
   "dependencies": {
-    "@babel/parser": "^7.23.6",
+    "@babel/parser": "^7.23.9",
     "estree-walker": "^2.0.2",
     "mitt": "^3.0.1",
     "p-limit": "^5.0.0",
@@ -46,15 +46,15 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.3",
-    "@babel/types": "^7.23.6",
+    "@babel/types": "^7.23.9",
     "bumpp": "^9.3.0",
     "eslint": "^8.56.0",
     "lint-staged": "^15.2.0",
     "simple-git-hooks": "^2.9.0",
     "tsup": "^8.0.1",
-    "type-fest": "^4.9.0",
+    "type-fest": "^4.10.1",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.1"
+    "vitest": "^1.2.2"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged"
