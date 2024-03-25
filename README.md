@@ -147,7 +147,7 @@ import { loadScanner } from 'esm-analyzer'
 const importResults = loadScanner(sourceCode, lang, node => scanImport(node))
 ```
 
-#### config 
+#### config
 
 The `scanImport` function accepts a config object as the second parameter:
 
@@ -169,7 +169,7 @@ const defaultConfig: Required<ScanImportConfig> = {
 
 The `variable declarations` is an array of `ScanVariableDeclarationResult`.
 
-#### cases 
+#### cases
 
 - ❌ deferred init
 - primitive declaration
@@ -196,7 +196,6 @@ export interface ScanVariableDeclarationResult {
   init: ResolveVariableDeclaration
 }
 ```
-
 
 #### examples
 
