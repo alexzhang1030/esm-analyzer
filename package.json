@@ -45,7 +45,7 @@
     "to-path-tree": "^0.2.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.9.0",
+    "@antfu/eslint-config": "^2.11.6",
     "@babel/types": "^7.24.0",
     "bumpp": "^9.4.0",
     "eslint": "^8.57.0",
