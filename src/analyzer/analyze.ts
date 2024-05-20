@@ -32,7 +32,7 @@ function findChildren(node: TreeNode<TreeNodeData>, name: string) {
   return node.items.find(item => item.filename === name) ?? null
 }
 
-const IS_NOT_PATH_REG = /^(?!\.\/|\.|\.\.\/).*/
+const IS_NOT_PATH_REG = /^(?!\.\/|\.).*/
 
 export function isNotPath(path: string) {
   return IS_NOT_PATH_REG.test(path)
