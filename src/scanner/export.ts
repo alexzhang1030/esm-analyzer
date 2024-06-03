@@ -67,8 +67,9 @@ export function scanExport(node: ASTNode, config?: ScanExportConfig, offsetConte
     !isExportNamedDeclaration(node)
     && !isExportDefaultDeclaration(node)
     && !isExportAllDeclaration(node)
-  )
+  ) {
     return null
+  }
   if (config?.includeType && !config.includeType.includes(node.type))
     return null
   if (config?.excludeType && config.excludeType.includes(node.type))
