@@ -39,7 +39,7 @@ export function loadScanners<
 
 export function loadScanner<
   Func extends (node: ASTNode, ...args: any[]) => any | null = (node: ASTNode, ...args: any[]) => any | null,
-  >(code: string, lang: string, scanner: Func) {
+>(code: string, lang: string, scanner: Func) {
   return loadScanners(code, lang, [scanner])[0]
 }
 

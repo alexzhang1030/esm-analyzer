@@ -6,7 +6,8 @@ export type ASTNode = Node
 export type * as t from '@babel/types'
 export type WalkCallback = (
   this: WalkerContext,
-  node: Node, parent: Node | null,
+  node: Node,
+  parent: Node | null,
   key: string | number | symbol | null | undefined,
   index: number | null | undefined
 ) => void
