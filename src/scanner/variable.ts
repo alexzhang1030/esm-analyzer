@@ -1,4 +1,4 @@
-import type { ASTNode, ASTNodeLocation, ResolveVariableDeclaration, VariableType, t } from '@/types'
+import type { ASTNode, ASTNodeLocation, ResolveVariableDeclaration, t, VariableType } from '@/types'
 import {
   getASTNodeLocation,
   isIdentifier,

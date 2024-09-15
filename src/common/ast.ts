@@ -1,5 +1,5 @@
+import type { ASTNode, ASTNodeLocation, t, WalkCallback } from '@/types'
 import { walk } from 'estree-walker'
-import type { ASTNode, ASTNodeLocation, WalkCallback, t } from '@/types'
 
 export function walkAST(node: ASTNode, handlers: {
   enter?: WalkCallback

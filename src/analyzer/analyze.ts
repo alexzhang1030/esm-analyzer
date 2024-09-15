@@ -1,4 +1,5 @@
 import type { TreeNode } from 'to-path-tree'
+import type { TreeNodeData, TreeNodeItem } from '.'
 import type {
   ArrayExpressionVariableValue,
   CallExpressionVariableValue,
@@ -10,9 +11,8 @@ import type {
   ScanImportResult,
   ScanVariableDeclarationResult,
 } from '..'
-import { getExportByName, getImportByName } from '..'
-import type { TreeNodeData, TreeNodeItem } from '.'
 import { loop, rangeLoop } from '@/utils'
+import { getExportByName, getImportByName } from '..'
 
 function findTheEntry(node: TreeNodeItem) {
   if (node.isEntry)

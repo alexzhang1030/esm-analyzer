@@ -1,4 +1,4 @@
-import { type ParserOptions, type ParserPlugin, parse } from '@babel/parser'
+import { parse, type ParserOptions, type ParserPlugin } from '@babel/parser'
 import { isJSX, isTS } from './lang'
 
 export function getBabelParsePlugins(lang: string) {

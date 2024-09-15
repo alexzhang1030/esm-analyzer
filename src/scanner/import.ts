@@ -1,5 +1,5 @@
-import { getASTNodeLocation, isImportDeclaration } from '@/common'
 import type { ASTNode, ASTNodeLocation, t } from '@/types'
+import { getASTNodeLocation, isImportDeclaration } from '@/common'
 
 import { loop } from '@/utils'
 
