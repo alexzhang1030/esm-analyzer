@@ -1,12 +1,12 @@
-import type { ScanImportConfig, ScanImportResult } from './import'
-import { scanImport } from './import'
-import type { ScanVariableDeclarationConfig, ScanVariableDeclarationResult } from './variable'
-import { scanVariableDeclaration } from './variable'
+import type { AcceptableLang, ASTNode } from '@/types'
 import type { ScanExportConfig, ScanExportResult } from './export'
-import { scanExport } from './export'
-import type { ASTNode, AcceptableLang } from '@/types'
+import type { ScanImportConfig, ScanImportResult } from './import'
+import type { ScanVariableDeclarationConfig, ScanVariableDeclarationResult } from './variable'
 import { babelParse, isAcceptableLang, walkAST } from '@/common'
 import { loop } from '@/utils'
+import { scanExport } from './export'
+import { scanImport } from './import'
+import { scanVariableDeclaration } from './variable'
 
 type NonNullable<T> = T extends null | undefined ? never : T
 type Flat<T> = T extends (infer U)[] ? Flat<U> : T
@@ -66,6 +66,6 @@ export function scan(code: string, lang: AcceptableLang, config?: ScanConfig, of
   }
 }
 
+export * from './export'
 export * from './import'
 export * from './variable'
-export * from './export'

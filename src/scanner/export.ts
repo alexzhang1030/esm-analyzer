@@ -1,5 +1,5 @@
-import { getASTNodeLocation, isExportAllDeclaration, isExportDefaultDeclaration, isExportNamedDeclaration, isIdentifier, resolveVariableDeclarationValue } from '@/common'
 import type { ASTNode, ASTNodeLocation, ResolveVariableDeclaration, t } from '@/types'
+import { getASTNodeLocation, isExportAllDeclaration, isExportDefaultDeclaration, isExportNamedDeclaration, isIdentifier, resolveVariableDeclarationValue } from '@/common'
 import { loop } from '@/utils'
 
 export type ScanExportType =

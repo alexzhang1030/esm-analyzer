@@ -1,12 +1,12 @@
-import pLimit from 'p-limit'
 import type { NodeItem } from 'to-path-tree'
-import { pathToTree, walkPathTree } from 'to-path-tree'
 import type { AcceptableLang, ScanExportResult, ScanImportResult, ScanVariableDeclarationResult, VariableType } from '..'
-import { scan } from '..'
-import { Progress } from './progress'
-import { Analyzer } from './analyze'
 import { getLangByFileName, isAcceptableLang } from '@/common'
 import { loop } from '@/utils'
+import pLimit from 'p-limit'
+import { pathToTree, walkPathTree } from 'to-path-tree'
+import { scan } from '..'
+import { Analyzer } from './analyze'
+import { Progress } from './progress'
 
 const limit = pLimit(10)
 

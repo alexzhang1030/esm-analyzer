@@ -1,6 +1,6 @@
+import type { ASTNode, ObjectExpressionVariableValue, ResolveVariableDeclaration, VariableType } from '@/types'
 import type { ScanVariableDeclarationConfig } from '..'
 import { isIdentifier } from './ast'
-import type { ASTNode, ObjectExpressionVariableValue, ResolveVariableDeclaration, VariableType } from '@/types'
 
 export function resolveVariableDeclarationValue(node?: ASTNode | null, config?: ScanVariableDeclarationConfig): ResolveVariableDeclaration {
   if (!node)
