@@ -2,7 +2,7 @@
   "name": "esm-analyzer",
   "type": "module",
   "version": "0.3.6",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@9.15.5",
   "description": "The scanner and analyzer of ESM.",
   "author": "alexzhang1030",
   "license": "MIT",
@@ -38,21 +38,21 @@
     "release": "vitest run && bumpp --commit \"chore: release v%s\" --push --tag && pnpm publish"
   },
   "dependencies": {
-    "@babel/parser": "^7.26.5",
+    "@babel/parser": "^7.26.7",
     "estree-walker": "^2.0.2",
     "mitt": "^3.0.1",
     "p-limit": "^6.2.0",
     "to-path-tree": "^1.2.3"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.14.0",
-    "@babel/types": "^7.26.5",
-    "bumpp": "^9.10.1",
-    "eslint": "^9.18.0",
-    "lint-staged": "^15.4.1",
+    "@antfu/eslint-config": "^3.16.0",
+    "@babel/types": "^7.26.7",
+    "bumpp": "^9.11.1",
+    "eslint": "^9.19.0",
+    "lint-staged": "^15.4.3",
     "simple-git-hooks": "^2.11.1",
-    "tsup": "^8.3.5",
-    "type-fest": "^4.32.0",
+    "tsup": "^8.3.6",
+    "type-fest": "^4.33.0",
     "typescript": "^5.7.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.2"
