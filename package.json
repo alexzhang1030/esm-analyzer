@@ -38,7 +38,7 @@
     "release": "vitest run && bumpp --commit \"chore: release v%s\" --push --tag && pnpm publish"
   },
   "dependencies": {
-    "@babel/parser": "^7.26.7",
+    "@babel/parser": "^7.26.8",
     "estree-walker": "^2.0.2",
     "mitt": "^3.0.1",
     "p-limit": "^6.2.0",
@@ -46,16 +46,16 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.1.1",
-    "@babel/types": "^7.26.7",
-    "bumpp": "^10.0.1",
-    "eslint": "^9.19.0",
+    "@babel/types": "^7.26.8",
+    "bumpp": "^10.0.2",
+    "eslint": "^9.20.0",
     "lint-staged": "^15.4.3",
     "simple-git-hooks": "^2.11.1",
     "tsup": "^8.3.6",
-    "type-fest": "^4.33.0",
+    "type-fest": "^4.34.1",
     "typescript": "^5.7.3",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.2"
+    "vitest": "^3.0.5"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged"
