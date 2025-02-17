@@ -40,7 +40,7 @@ export interface PrepareConfig {
 
 export class Project {
   #name: string
-  #mapping: Map</* _absolute_ file name */string, MapData> = new Map()
+  #mapping: Map<string, MapData> = new Map()
   #filePaths: string[] = []
   #config: {
     prepare?: PrepareConfig
