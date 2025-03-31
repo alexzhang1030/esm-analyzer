@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@babel/parser':
-        specifier: ^7.26.10
-        version: 7.26.10
+        specifier: ^7.27.0
+        version: 7.27.0
       estree-walker:
         specifier: ^2.0.2
         version: 2.0.2
@@ -28,8 +28,8 @@ importers:
         specifier: ^4.11.0
         version: 4.11.0(@typescript-eslint/utils@8.27.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2))(@vue/compiler-sfc@3.3.11)(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)(vitest@3.0.9(@types/debug@4.1.12)(jiti@2.4.2)(yaml@2.7.0))
       '@babel/types':
-        specifier: ^7.26.10
-        version: 7.26.10
+        specifier: ^7.27.0
+        version: 7.27.0
       bumpp:
         specifier: ^10.1.0
         version: 10.1.0
@@ -46,8 +46,8 @@ importers:
         specifier: ^8.4.0
         version: 8.4.0(jiti@2.4.2)(postcss@8.5.1)(typescript@5.8.2)(yaml@2.7.0)
       type-fest:
-        specifier: ^4.37.0
-        version: 4.37.0
+        specifier: ^4.38.0
+        version: 4.38.0
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -132,13 +132,13 @@ packages:
     resolution: {integrity: sha512-dkdMCN3py0+ksCgYmGG8jKeGA/8Tk+gJwSYYlFGxG5lmhfKNoAy004YpLxpS1W2J8m/EK2Ew+yOs9pVRwO89mg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/parser@7.26.10':
-    resolution: {integrity: sha512-6aQR2zGE/QFi8JpDLjUZEPYOs7+mhKXm86VaKFiLP35JQwQb6bwUE+XbvkH0EptsYhbNBSUGaUBLKqxH1xSgsA==}
+  '@babel/parser@7.27.0':
+    resolution: {integrity: sha512-iaepho73/2Pz7w2eMS0Q5f83+0RKI7i4xmiYeBmDzfRVbQtTOG7Ts0S4HzJVsTMGI9keU8rNfuZr8DKfSt7Yyg==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  '@babel/types@7.26.10':
-    resolution: {integrity: sha512-emqcG3vHrpxUKTrxcblR36dcrcoRDvKmnL/dCL6ZsHaShW80qxCAcNhzQZrpeM765VzEos+xOi4s+r4IXzTwdQ==}
+  '@babel/types@7.27.0':
+    resolution: {integrity: sha512-H45s8fVLYjbhFH62dIJ3WtmJ6RSPt/3DRO0ZcT2SUiYiQyz3BLVb9ADEnLl91m74aQPS3AzzeajZHYOalWe3bg==}
     engines: {node: '>=6.9.0'}
 
   '@clack/core@0.4.1':
@@ -2361,8 +2361,8 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
-  type-fest@4.37.0:
-    resolution: {integrity: sha512-S/5/0kFftkq27FPNye0XM1e2NsnoD/3FS+pBmbjmmtLT6I+i344KoOf7pvXreaFsDamWeaJX55nczA1m5PsBDg==}
+  type-fest@4.38.0:
+    resolution: {integrity: sha512-2dBz5D5ycHIoliLYLi0Q2V7KRaDlH0uWIvmk7TYlAg5slqwiPv1ezJdZm1QEM0xgk29oYWMCbIG7E6gHpvChlg==}
     engines: {node: '>=16'}
 
   typescript@5.8.2:
@@ -2614,11 +2614,11 @@ snapshots:
       chalk: 2.4.2
       js-tokens: 4.0.0
 
-  '@babel/parser@7.26.10':
+  '@babel/parser@7.27.0':
     dependencies:
-      '@babel/types': 7.26.10
+      '@babel/types': 7.27.0
 
-  '@babel/types@7.26.10':
+  '@babel/types@7.27.0':
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
@@ -3207,7 +3207,7 @@ snapshots:
 
   '@vue/compiler-core@3.3.11':
     dependencies:
-      '@babel/parser': 7.26.10
+      '@babel/parser': 7.27.0
       '@vue/shared': 3.3.11
       estree-walker: 2.0.2
       source-map-js: 1.2.1
@@ -3219,7 +3219,7 @@ snapshots:
 
   '@vue/compiler-sfc@3.3.11':
     dependencies:
-      '@babel/parser': 7.26.10
+      '@babel/parser': 7.27.0
       '@vue/compiler-core': 3.3.11
       '@vue/compiler-dom': 3.3.11
       '@vue/compiler-ssr': 3.3.11
@@ -3237,7 +3237,7 @@ snapshots:
 
   '@vue/reactivity-transform@3.3.11':
     dependencies:
-      '@babel/parser': 7.26.10
+      '@babel/parser': 7.27.0
       '@vue/compiler-core': 3.3.11
       '@vue/shared': 3.3.11
       estree-walker: 2.0.2
@@ -4562,7 +4562,7 @@ snapshots:
     dependencies:
       '@babel/code-frame': 7.22.13
       index-to-position: 0.1.2
-      type-fest: 4.37.0
+      type-fest: 4.38.0
 
   path-exists@4.0.0: {}
 
@@ -4649,14 +4649,14 @@ snapshots:
     dependencies:
       find-up-simple: 1.0.1
       read-pkg: 9.0.1
-      type-fest: 4.37.0
+      type-fest: 4.38.0
 
   read-pkg@9.0.1:
     dependencies:
       '@types/normalize-package-data': 2.4.4
       normalize-package-data: 6.0.2
       parse-json: 8.1.0
-      type-fest: 4.37.0
+      type-fest: 4.38.0
       unicorn-magic: 0.1.0
 
   readdirp@4.0.2: {}
@@ -4954,7 +4954,7 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
 
-  type-fest@4.37.0: {}
+  type-fest@4.38.0: {}
 
   typescript@5.8.2: {}
 
