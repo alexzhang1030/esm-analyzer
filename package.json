@@ -41,7 +41,7 @@
     "@babel/parser": "^7.27.2",
     "estree-walker": "^2.0.2",
     "mitt": "^3.0.1",
-    "p-limit": "^6.2.0",
+    "p-limit": "^7.1.1",
     "to-path-tree": "^1.2.3"
   },
   "devDependencies": {
