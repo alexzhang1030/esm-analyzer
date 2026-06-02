@@ -1,7 +1,7 @@
-import type { AcceptableLang, ASTNode } from '@/types'
 import type { ScanExportConfig, ScanExportResult } from './export'
 import type { ScanImportConfig, ScanImportResult } from './import'
 import type { ScanVariableDeclarationConfig, ScanVariableDeclarationResult } from './variable'
+import type { AcceptableLang, ASTNode } from '@/types'
 import { babelParse, isAcceptableLang, walkAST } from '@/common'
 import { loop } from '@/utils'
 import { scanExport } from './export'
