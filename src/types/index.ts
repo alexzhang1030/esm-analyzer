@@ -1,5 +1,9 @@
 import type { Node } from '@babel/types'
-import type { WalkerContext } from 'estree-walker/types/walker'
+export interface WalkerContext {
+  skip: () => void
+  remove: () => void
+  replace: (node: Node) => void
+}
 import type { Primitive } from 'type-fest'
 
 export type ASTNode = Node

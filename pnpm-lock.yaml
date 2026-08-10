@@ -49,7 +49,7 @@ importers:
         specifier: ^5.8.0
         version: 5.8.0
       typescript:
-        specifier: ^5.9.3
+        specifier: ~5.9.0
         version: 5.9.3
       vite-tsconfig-paths:
         specifier: ^6.1.1
