@@ -8,9 +8,11 @@ trustPolicyExclude:
   - semver
 packages:
   - .
+trustLockfile: true
+overrides:
+  esbuild: ^0.28.1
 onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks
   - unrs-resolver
   - '@swc/core'
-trustLockfile: true
