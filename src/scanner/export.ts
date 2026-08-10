@@ -2,10 +2,10 @@ import type { ASTNode, ASTNodeLocation, ResolveVariableDeclaration, t } from '@/
 import { getASTNodeLocation, isExportAllDeclaration, isExportDefaultDeclaration, isExportNamedDeclaration, isIdentifier, resolveVariableDeclarationValue } from '@/common'
 import { loop } from '@/utils'
 
-export type ScanExportType =
-  | 'ExportNamedDeclaration'
-  | 'ExportAllDeclaration'
-  | 'ExportDefaultDeclaration'
+export type ScanExportType
+  = | 'ExportNamedDeclaration'
+    | 'ExportAllDeclaration'
+    | 'ExportDefaultDeclaration'
 
 export interface ScanExportNamedDeclarationResult {
   type: 'ExportNamedDeclaration'

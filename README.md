@@ -248,14 +248,14 @@ const importResults = loadScanner(sourceCode, lang, node => scanVariableDeclarat
 The `scanVariableDeclaration` function accepts a config object as the second parameter:
 
 ```ts
-export type VariableType =
-  | 'StringLiteral'
-  | 'NumericLiteral'
-  | 'BooleanLiteral'
-  | 'NullLiteral'
-  | 'ObjectExpression'
-  | 'ArrayExpression'
-  | 'CallExpression'
+export type VariableType
+  = | 'StringLiteral'
+    | 'NumericLiteral'
+    | 'BooleanLiteral'
+    | 'NullLiteral'
+    | 'ObjectExpression'
+    | 'ArrayExpression'
+    | 'CallExpression'
 
 interface ScanVariableDeclarationConfig {
   includeType?: VariableType[]
@@ -395,10 +395,10 @@ const importResults = loadScanner(sourceCode, lang, node => scanExport(node))
 The `scanExport` function accepts a config object as the second parameter:
 
 ```ts
-export type ScanExportType =
-  | 'ExportNamedDeclaration'
-  | 'ExportAllDeclaration'
-  | 'ExportDefaultDeclaration'
+export type ScanExportType
+  = | 'ExportNamedDeclaration'
+    | 'ExportAllDeclaration'
+    | 'ExportDefaultDeclaration'
 
 interface ScanExportConfig {
   includeType?: ScanExportType[]
