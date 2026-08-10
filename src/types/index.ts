@@ -9,7 +9,7 @@ export type WalkCallback = (
   node: Node,
   parent: Node | null,
   key: string | number | symbol | null | undefined,
-  index: number | null | undefined
+  index: number | null | undefined,
 ) => void
 export type AcceptableLang = 'js' | 'jsx' | 'ts' | 'tsx'
 
@@ -26,19 +26,19 @@ export interface ASTNodeLocation {
   }
 }
 
-export type VariableType =
-  | 'StringLiteral'
-  | 'NumericLiteral'
-  | 'BooleanLiteral'
-  | 'NullLiteral'
-  | 'ObjectExpression'
-  | 'ArrayExpression'
-  | 'CallExpression'
-  | 'Identifier'
+export type VariableType
+  = | 'StringLiteral'
+    | 'NumericLiteral'
+    | 'BooleanLiteral'
+    | 'NullLiteral'
+    | 'ObjectExpression'
+    | 'ArrayExpression'
+    | 'CallExpression'
+    | 'Identifier'
 
-type PrimitiveValue =
-  | Primitive
-  | null | undefined
+type PrimitiveValue
+  = | Primitive
+    | null | undefined
 
 export interface PrimitiveVariableValue {
   type:
@@ -72,10 +72,10 @@ export interface IdentifierVariableValue {
   id: string
 }
 
-export type ResolveVariableDeclaration =
-  | PrimitiveVariableValue
-  | CallExpressionVariableValue
-  | ObjectExpressionVariableValue
-  | ArrayExpressionVariableValue
-  | IdentifierVariableValue
-  | null
+export type ResolveVariableDeclaration
+  = | PrimitiveVariableValue
+    | CallExpressionVariableValue
+    | ObjectExpressionVariableValue
+    | ArrayExpressionVariableValue
+    | IdentifierVariableValue
+    | null
