@@ -10,7 +10,7 @@ packages:
   - .
 trustLockfile: true
 overrides:
-  esbuild: ^0.28.1
+  esbuild: ^0.28.2
 onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks
