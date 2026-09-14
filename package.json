@@ -2,7 +2,7 @@
   "name": "esm-analyzer",
   "type": "module",
   "version": "0.3.7",
-  "packageManager": "pnpm@11.24.0",
+  "packageManager": "pnpm@12.4.1",
   "description": "The scanner and analyzer of ESM.",
   "author": "alexzhang1030",
   "license": "MIT",
