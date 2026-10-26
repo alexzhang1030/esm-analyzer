@@ -45,7 +45,9 @@ describe('variableDeclaration type', () => {
       var d = null
       const foo = ref(1)
     `
-    const result = loadScanner(code, 'js', node => scanVariableDeclaration(node, { includeType: ['CallExpression'] }))
+    const result = loadScanner(code, 'js', node => scanVariableDeclaration(node, {
+      includeType: ['CallExpression'],
+    }))
     expect(result).toMatchSnapshot()
   })
 })

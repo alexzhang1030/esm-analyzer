@@ -118,7 +118,9 @@ export class Project {
           const r = this.#scanFile(code, targetNode.source.lang, targetNode.source.offsetContent)
           item.data!.scan = r
           targetNode.referToNode = item
-          targetNode.analyzer = new Analyzer(item, r, importFrom ? { importFrom } : undefined)
+          targetNode.analyzer = new Analyzer(item, r, importFrom
+            ? { importFrom }
+            : undefined)
           this.#progress.increment()
           targetNode.analyzer?.analyze()
           this.#progress.increment()
