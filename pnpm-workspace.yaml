@@ -1,16 +1,21 @@
-dangerouslyAllowAllBuilds: true
 minimumReleaseAge: 0
-shellEmulator: true
+minimumReleaseAgeExcludePrune: true
+trustLockfile: true
 
 trustPolicy: no-downgrade
 trustPolicyExclude:
   - chokidar
   - semver
+
+dangerouslyAllowAllBuilds: true
+shellEmulator: true
+
 packages:
   - .
-trustLockfile: true
+
 overrides:
   esbuild: ^0.28.2
+
 onlyBuiltDependencies:
   - esbuild
   - simple-git-hooks

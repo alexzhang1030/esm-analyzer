@@ -54,10 +54,12 @@ describe('pass config', () => {
       import { b } from 'react'
       import type { c, d } from '@vueuse/core'
     `
-    const result = loadScanners(code, 'ts', [node => scanImport(node, {
-      excludeSource: ['vue'],
-      skipType: true,
-    })])
+    const result = loadScanners(code, 'ts', [
+      node => scanImport(node, {
+        excludeSource: ['vue'],
+        skipType: true,
+      }),
+    ])
     expect(result).toMatchSnapshot()
   })
 })

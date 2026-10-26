@@ -115,7 +115,9 @@ export function scanImport(node: ASTNode, config: ScanImportConfig = defaultConf
         imported,
         local,
         subType,
-        isType: !isType ? subIsType : isType,
+        isType: !isType
+          ? subIsType
+          : isType,
       })
     }
   })
